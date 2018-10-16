@@ -19,6 +19,7 @@ public class Worklog {
     private LocalDate date;
     private Integer hourFrom;
     private Integer hourTo;
+    private Integer duration;
     private String comment;
     private WorklogStatus status;
     @ManyToOne
