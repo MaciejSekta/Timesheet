@@ -1,2 +1,2 @@
 # Timesheet
-Implementation of timesheet app.
+Backend implementation of timesheet app.
