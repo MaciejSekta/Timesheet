@@ -34,8 +34,11 @@ public class WorklogService {
         return null;
     }
 
-    public void deleteUser(Long worklogId) {
-
+    public void deleteWorklog(Long worklogId) {
+        Worklog worklog = worklogDao.findById(worklogId)
+                                    .orElseThrow(() -> new NoSuchElementException());
+        worklog.setActive(false);
+        worklogDao.save(worklog);
     }
 
     public WorklogDTO getWorklog(Long worklogId) {
