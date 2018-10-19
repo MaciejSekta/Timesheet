@@ -13,7 +13,6 @@ public class ProjectDTO {
 
     private Long id;
     private String name;
-    private List<WorklogDTO> worklogs;
     private List<UserShortDTO> memebers;
     private UserShortDTO manager;
 }

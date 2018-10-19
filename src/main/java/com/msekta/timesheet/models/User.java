@@ -32,6 +32,7 @@ public class User {
             @JoinColumn(name = "project_id")},
             inverseJoinColumns = {@JoinColumn(name = "user_id")})
     private List<Project> projects;
+    private Boolean active;
 
 
 

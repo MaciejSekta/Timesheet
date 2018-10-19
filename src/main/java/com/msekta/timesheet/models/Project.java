@@ -24,4 +24,5 @@ public class Project {
     private List<User> memebers;
     @ManyToOne
     private User manager;
+    private Boolean active;
 }

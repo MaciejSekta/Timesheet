@@ -12,6 +12,4 @@ public class ProjectShortDTO {
 
     private Long id;
     private String name;
-    private List<UserShortDTO> memebers;
-    private UserShortDTO manager;
 }

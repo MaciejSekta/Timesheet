@@ -26,4 +26,5 @@ public class Worklog {
     private Project project;
     @ManyToOne
     private User user;
+    private Boolean active;
 }
