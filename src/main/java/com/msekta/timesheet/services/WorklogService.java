@@ -25,13 +25,15 @@ public class WorklogService {
     }
 
     public Worklog createWorklog(WorklogDTO worklogDTO) {
-
-        return null;
+        Worklog worklog = worklogMapper.mapDTOToModel(worklogDTO, Worklog.builder().build());
+        return worklogDao.save(worklog);
     }
 
     public Worklog udpateWorklog(WorklogDTO worklogDTO) {
-
-        return null;
+        Worklog worklog = worklogDao.findById(worklogDTO.getId())
+                                    .orElseThrow(() -> new NoSuchElementException());
+        worklogMapper.mapDTOToModel(worklogDTO, worklog);
+        return worklogDao.save(worklog);
     }
 
     public void deleteWorklog(Long worklogId) {

@@ -15,13 +15,11 @@ public class Project {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
-    @OneToMany
-    private List<Worklog> worklogs;
     @ManyToMany
     @JoinTable(name = "projects_users", joinColumns = {
             @JoinColumn(name = "user_id")},
             inverseJoinColumns = {@JoinColumn(name = "project_id")})
-    private List<User> memebers;
+    private List<User> members;
     @ManyToOne
     private User manager;
     private Boolean active;

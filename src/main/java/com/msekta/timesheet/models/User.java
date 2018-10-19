@@ -21,11 +21,11 @@ public class User {
     private String password;
     private String name;
     private String surname;
-    private LocalDate bithday;
+    private LocalDate birthday;
     private UserType userType;
     private UserRole role;
     private Integer workDayHours;
-    @OneToMany
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
     private List<Worklog> worklogs;
     @ManyToMany
     @JoinTable(name = "projects_users", joinColumns = {

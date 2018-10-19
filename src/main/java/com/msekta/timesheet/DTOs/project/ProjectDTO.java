@@ -13,6 +13,7 @@ public class ProjectDTO {
 
     private Long id;
     private String name;
-    private List<UserShortDTO> memebers;
+    private Boolean active;
+    private List<UserShortDTO> members;
     private UserShortDTO manager;
 }

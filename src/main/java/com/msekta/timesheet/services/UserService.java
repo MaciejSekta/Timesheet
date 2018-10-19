@@ -1,7 +1,7 @@
 package com.msekta.timesheet.services;
 
-import com.msekta.timesheet.DTOs.user.RegisterDTO;
 import com.msekta.timesheet.DTOs.user.UserDTO;
+import com.msekta.timesheet.DTOs.user.UserDetailsDTO;
 import com.msekta.timesheet.mappers.UserMapper;
 import com.msekta.timesheet.models.User;
 import com.msekta.timesheet.repo.UserDao;
@@ -25,14 +25,16 @@ public class UserService {
         this.userMapper = userMapper;
     }
 
-    public User createUser(RegisterDTO userDto) {
-
-        return null;
+    public User createUser(UserDTO userDto) {
+        User user = userMapper.mapDTOToModel(userDto, User.builder().build());
+        return userDao.save(user);
     }
 
-    public User udpateUser(RegisterDTO userDTO) {
-
-        return null;
+    public User udpateUser(UserDTO userDto) {
+        User user = userDao.findById(userDto.getId())
+                           .orElseThrow(() -> new NoSuchElementException());
+        userMapper.mapDTOToModel(userDto, user);
+        return userDao.save(user);
     }
 
     public void deleteUser(Long userId) {
@@ -53,5 +55,10 @@ public class UserService {
         return users.stream()
                     .map(u -> userMapper.mapModelToDTO(u))
                     .collect(Collectors.toList());
+    }
+
+    public User findUserById(Long userId){
+        return userDao.findById(userId)
+               .orElseThrow(() -> new NoSuchElementException());
     }
 }

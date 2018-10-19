@@ -1,20 +1,24 @@
 package com.msekta.timesheet.DTOs.user;
 
+import com.msekta.timesheet.DTOs.project.ProjectDTO;
+import com.msekta.timesheet.DTOs.WorklogDTO;
 import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
-@Builder(builderMethodName = "userBuilder")
-public class UserDTO extends LoginDTO {
+@Builder
+public class UserDetailsDTO {
 
     private Long id;
     private String name;
     private String surname;
     private LocalDate birthday;
     private String userType;
-    private Integer workDayHours;
-    private Boolean active;
     private String role;
+    private Integer workDayHours;
+    private List<WorklogDTO> worklogs;
+    private List<ProjectDTO> projects;
 }
