@@ -1,6 +1,7 @@
 package com.msekta.timesheet.services;
 
 import com.msekta.timesheet.DTOs.WorklogDTO;
+import com.msekta.timesheet.enums.WorklogStatus;
 import com.msekta.timesheet.mappers.WorklogMapper;
 import com.msekta.timesheet.models.Worklog;
 import com.msekta.timesheet.repo.WorklogDao;
@@ -42,23 +43,44 @@ public class WorklogService {
         }
     }
 
-    public void deleteWorklog(Long worklogId) {
-        Worklog worklog = worklogDao.findById(worklogId)
+    public void deleteWorklog(Long id) {
+        Worklog worklog = worklogDao.findById(id)
                                     .orElseThrow(() -> new NoSuchElementException());
         worklog.setActive(false);
         worklogDao.save(worklog);
     }
 
-    public WorklogDTO getWorklog(Long worklogId) {
-        Worklog worklog = worklogDao.findById(worklogId)
+    public WorklogDTO getWorklog(Long id) {
+        Worklog worklog = worklogDao.findById(id)
                                     .orElseThrow(() -> new NoSuchElementException());
         return worklogMapper.mapModelToDTO(worklog);
     }
 
     public List<WorklogDTO> getAllWorklogs() {
-        List<Worklog> worklogs = (List<Worklog>) worklogDao.findAll();
+        List<Worklog> worklogs = worklogDao.findAllByActive(true);
         return worklogs.stream()
                        .map(w -> worklogMapper.mapModelToDTO(w))
                        .collect(Collectors.toList());
+    }
+
+    public void acceptWorklog(Long id){
+        Worklog worklog = worklogDao.findById(id)
+                                    .orElseThrow(() -> new NoSuchElementException());
+        worklog.setStatus(WorklogStatus.ACCEPTED);
+        worklogDao.save(worklog);
+    }
+
+    public void rejectWorklog(Long id){
+        Worklog worklog = worklogDao.findById(id)
+                                    .orElseThrow(() -> new NoSuchElementException());
+        worklog.setStatus(WorklogStatus.REJECTED);
+        worklogDao.save(worklog);
+    }
+
+    public void acceptAllWorklogs(){
+        worklogDao.findAll().forEach(w -> {
+            w.setStatus(WorklogStatus.ACCEPTED);
+            worklogDao.save(w);
+        });
     }
 }

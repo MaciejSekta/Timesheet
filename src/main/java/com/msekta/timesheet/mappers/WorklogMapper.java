@@ -53,6 +53,7 @@ public class WorklogMapper {
         model.setUser(userService.findUserById(dto.getUser().getId()));
         model.setProject(projectService.findProjectById(dto.getProject().getId()));
         model.setStatus(WorklogStatus.valueOf(dto.getStatus()));
+        model.setActive(true);
         return model;
     }
 }
