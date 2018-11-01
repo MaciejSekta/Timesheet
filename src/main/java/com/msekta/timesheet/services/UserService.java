@@ -58,7 +58,8 @@ public class UserService {
     }
 
     public User findUserById(Long userId){
+        // to delete when sec will be added
         return userDao.findById(userId)
-               .orElseThrow(() -> new NoSuchElementException());
+               .orElse(((List<User>)userDao.findAll()).stream().findAny().get());
     }
 }

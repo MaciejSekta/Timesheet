@@ -4,6 +4,7 @@ import com.msekta.timesheet.DTOs.WorklogDTO;
 import com.msekta.timesheet.mappers.WorklogMapper;
 import com.msekta.timesheet.models.Worklog;
 import com.msekta.timesheet.repo.WorklogDao;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class WorklogService {
 
     private WorklogDao worklogDao;
@@ -30,10 +32,14 @@ public class WorklogService {
     }
 
     public Worklog udpateWorklog(WorklogDTO worklogDTO) {
-        Worklog worklog = worklogDao.findById(worklogDTO.getId())
-                                    .orElseThrow(() -> new NoSuchElementException());
-        worklogMapper.mapDTOToModel(worklogDTO, worklog);
-        return worklogDao.save(worklog);
+        if(worklogDTO.getId() != null) {
+            Worklog worklog = worklogDao.findById(worklogDTO.getId())
+                                        .orElseThrow(() -> new NoSuchElementException());
+            worklogMapper.mapDTOToModel(worklogDTO, worklog);
+            return worklogDao.save(worklog);
+        }else{
+            return createWorklog(worklogDTO);
+        }
     }
 
     public void deleteWorklog(Long worklogId) {
@@ -50,7 +56,7 @@ public class WorklogService {
     }
 
     public List<WorklogDTO> getAllWorklogs() {
-        Set<Worklog> worklogs = (Set<Worklog>) worklogDao.findAll();
+        List<Worklog> worklogs = (List<Worklog>) worklogDao.findAll();
         return worklogs.stream()
                        .map(w -> worklogMapper.mapModelToDTO(w))
                        .collect(Collectors.toList());

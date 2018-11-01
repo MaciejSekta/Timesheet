@@ -1,6 +1,8 @@
 package com.msekta.timesheet.mappers;
 
 import com.msekta.timesheet.DTOs.WorklogDTO;
+import com.msekta.timesheet.DTOs.user.UserShortDTO;
+import com.msekta.timesheet.enums.WorklogStatus;
 import com.msekta.timesheet.models.Worklog;
 import com.msekta.timesheet.services.ProjectService;
 import com.msekta.timesheet.services.UserService;
@@ -33,6 +35,7 @@ public class WorklogMapper {
                                    .comment(model.getComment())
                                    .user(userMapper.mapModelToShortDTO(model.getUser()))
                                    .project(projectMapper.mapModelToShortDTO(model.getProject()))
+                                   .status(model.getStatus().name())
                                    .build();
         return dto;
     }
@@ -43,8 +46,13 @@ public class WorklogMapper {
         model.setHourTo(dto.getHourTo());
         model.setDuration(dto.getDuration());
         model.setComment(dto.getComment());
+        // to delete when sec will be added
+        if(dto.getUser() == null){
+            dto.setUser(UserShortDTO.builder().id(1L).build());
+        }
         model.setUser(userService.findUserById(dto.getUser().getId()));
         model.setProject(projectService.findProjectById(dto.getProject().getId()));
+        model.setStatus(WorklogStatus.valueOf(dto.getStatus()));
         return model;
     }
 }

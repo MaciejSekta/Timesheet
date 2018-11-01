@@ -17,10 +17,8 @@ public class UserMapper {
                              .name(model.getName())
                              .surname(model.getSurname())
                              .birthday(model.getBirthday())
-                             .role(model.getRole()
-                                        .name())
-                             .userType(model.getUserType()
-                                            .name())
+                             .role(model.getRole().name())
+                             .userType(model.getUserType().name())
                              .workDayHours(model.getWorkDayHours())
                              .build();
         return dto;

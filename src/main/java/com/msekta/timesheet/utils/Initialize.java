@@ -7,6 +7,7 @@ import com.msekta.timesheet.DTOs.user.UserDTO;
 import com.msekta.timesheet.DTOs.user.UserShortDTO;
 import com.msekta.timesheet.enums.UserRole;
 import com.msekta.timesheet.enums.UserType;
+import com.msekta.timesheet.enums.WorklogStatus;
 import com.msekta.timesheet.models.Project;
 import com.msekta.timesheet.models.User;
 import com.msekta.timesheet.models.Worklog;
@@ -128,7 +129,7 @@ public class Initialize {
         projects.add(projectService.createProject(project3));
     }
 
-    public void initializeWorklogs() {
+    private void initializeWorklogs() {
         WorklogDTO worklog = WorklogDTO.builder()
                                        .comment("comm")
                                        .date(LocalDate.now())
@@ -137,6 +138,7 @@ public class Initialize {
                                        .duration(8)
                                        .project(ProjectShortDTO.builder().id(projects.get(1).getId()).build())
                                        .user(UserShortDTO.builder().id(users.get(1) .getId()) .build())
+                                       .status(WorklogStatus.ACCEPTED.name())
                                        .build();
         Worklog worklog1 = worklogService.createWorklog(worklog);
         User user = userService.findUserById(users.get(1).getId());
@@ -150,6 +152,7 @@ public class Initialize {
                                        .duration(8)
                                        .project(ProjectShortDTO.builder().id(projects.get(1).getId()).build())
                                        .user(UserShortDTO.builder().id(users.get(1) .getId()) .build())
+                                        .status(WorklogStatus.PENDING.name())
                                        .build();
         Worklog worklog3 = worklogService.createWorklog(worklog2);
         user.getWorklogs().add(worklog3);
@@ -162,6 +165,7 @@ public class Initialize {
                                        .duration(8)
                                        .project(ProjectShortDTO.builder().id(projects.get(1).getId()).build())
                                        .user(UserShortDTO.builder().id(users.get(1) .getId()) .build())
+                                        .status(WorklogStatus.ACCEPTED.name())
                                        .build();
         Worklog worklog5 = worklogService.createWorklog(worklog4);
         user.getWorklogs().add(worklog5);
@@ -174,6 +178,7 @@ public class Initialize {
                                        .duration(8)
                                        .project(ProjectShortDTO.builder().id(projects.get(1).getId()).build())
                                        .user(UserShortDTO.builder().id(users.get(1) .getId()) .build())
+                                        .status(WorklogStatus.PENDING.name())
                                        .build();
         Worklog worklog7 = worklogService.createWorklog(worklog6);
         user.getWorklogs().add(worklog7);
@@ -186,6 +191,7 @@ public class Initialize {
                                        .duration(8)
                                        .project(ProjectShortDTO.builder().id(projects.get(1).getId()).build())
                                        .user(UserShortDTO.builder().id(users.get(1) .getId()) .build())
+                                        .status(WorklogStatus.REJECTED.name())
                                        .build();
         Worklog worklog9 = worklogService.createWorklog(worklog8);
         user.getWorklogs().add(worklog9);

@@ -1,6 +1,7 @@
 package com.msekta.timesheet.services;
 
 import com.msekta.timesheet.DTOs.project.ProjectDTO;
+import com.msekta.timesheet.DTOs.project.ProjectShortDTO;
 import com.msekta.timesheet.mappers.ProjectMapper;
 import com.msekta.timesheet.models.Project;
 import com.msekta.timesheet.repo.ProjectDao;
@@ -52,6 +53,13 @@ public class ProjectService {
         Set<Project> projects = (Set<Project>) projectDao.findAll();
         return projects.stream()
                        .map(p -> projectMapper.mapModelToDTO(p))
+                       .collect(Collectors.toList());
+    }
+
+    public List<ProjectShortDTO> getAllShortProjects() {
+        List<Project> projects = (List<Project>) projectDao.findAll();
+        return projects.stream()
+                       .map(p -> projectMapper.mapModelToShortDTO(p))
                        .collect(Collectors.toList());
     }
 
