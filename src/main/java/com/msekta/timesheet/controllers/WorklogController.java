@@ -27,6 +27,26 @@ public class WorklogController {
         }
     }
 
+    @GetMapping(value = "/timesheet")
+    public ResponseEntity<List<WorklogDTO>> getAllUserWorklogs() {
+        try{
+            return ResponseEntity.ok(worklogService.getAllUserWorklogs());
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @GetMapping(value = "/team")
+    public ResponseEntity<List<WorklogDTO>> getAllWorklogsOfMembersOfProjectsWhereUserIsManager() {
+        try{
+            return ResponseEntity.ok(worklogService.getAllWorklogsOfMembersOfProjectsWhereUserIsManager());
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
     @PutMapping
     public ResponseEntity<?> saveOrUpdateWorklog(@RequestBody WorklogDTO worklogDTO) {
         try {

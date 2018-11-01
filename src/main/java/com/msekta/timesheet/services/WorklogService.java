@@ -3,7 +3,9 @@ package com.msekta.timesheet.services;
 import com.msekta.timesheet.DTOs.WorklogDTO;
 import com.msekta.timesheet.enums.WorklogStatus;
 import com.msekta.timesheet.mappers.WorklogMapper;
+import com.msekta.timesheet.models.Project;
 import com.msekta.timesheet.models.Worklog;
+import com.msekta.timesheet.repo.ProjectDao;
 import com.msekta.timesheet.repo.WorklogDao;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +22,13 @@ public class WorklogService {
 
     private WorklogDao worklogDao;
     private WorklogMapper worklogMapper;
+    private ProjectDao projectDao;
 
     @Autowired
-    public WorklogService(WorklogDao worklogDao, WorklogMapper worklogMapper) {
+    public WorklogService(WorklogDao worklogDao, WorklogMapper worklogMapper, ProjectDao projectDao) {
         this.worklogDao = worklogDao;
         this.worklogMapper = worklogMapper;
+        this.projectDao = projectDao;
     }
 
     public Worklog createWorklog(WorklogDTO worklogDTO) {
@@ -63,6 +67,23 @@ public class WorklogService {
                        .collect(Collectors.toList());
     }
 
+    public List<WorklogDTO> getAllUserWorklogs(){
+        Long id = 1L; // to remove when sec
+        List<Worklog> worklogs = worklogDao.findAllByUser_id(id);
+        return worklogs.stream()
+                       .map(w -> worklogMapper.mapModelToDTO(w))
+                       .collect(Collectors.toList());
+    }
+
+    public List<WorklogDTO> getAllWorklogsOfMembersOfProjectsWhereUserIsManager(){
+        Long id = 2L; // to remove when sec
+        List<Project> projectsWhereUserIsAdmin = projectDao.findAllByManager_id(id);
+        List<Worklog> worklogs = worklogDao.findAllByProjectIn(projectsWhereUserIsAdmin);
+        return worklogs.stream()
+                       .map(w -> worklogMapper.mapModelToDTO(w))
+                       .collect(Collectors.toList());
+    }
+
     public void acceptWorklog(Long id){
         Worklog worklog = worklogDao.findById(id)
                                     .orElseThrow(() -> new NoSuchElementException());
@@ -77,6 +98,7 @@ public class WorklogService {
         worklogDao.save(worklog);
     }
 
+    // Accept only worklogs of users which are members of projects of logged manager. Accept only with padding status.
     public void acceptAllWorklogs(){
         worklogDao.findAll().forEach(w -> {
             w.setStatus(WorklogStatus.ACCEPTED);

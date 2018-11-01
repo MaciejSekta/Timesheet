@@ -176,7 +176,7 @@ public class Initialize {
                                        .hourFrom(8)
                                        .hourTo(16)
                                        .duration(8)
-                                       .project(ProjectShortDTO.builder().id(projects.get(1).getId()).build())
+                                       .project(ProjectShortDTO.builder().id(projects.get(0).getId()).build())
                                        .user(UserShortDTO.builder().id(users.get(1) .getId()) .build())
                                         .status(WorklogStatus.PENDING.name())
                                        .build();
@@ -190,7 +190,7 @@ public class Initialize {
                                        .hourTo(16)
                                        .duration(8)
                                        .project(ProjectShortDTO.builder().id(projects.get(1).getId()).build())
-                                       .user(UserShortDTO.builder().id(users.get(1) .getId()) .build())
+                                       .user(UserShortDTO.builder().id(users.get(0) .getId()) .build())
                                         .status(WorklogStatus.REJECTED.name())
                                        .build();
         Worklog worklog9 = worklogService.createWorklog(worklog8);
