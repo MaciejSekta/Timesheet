@@ -1,5 +1,6 @@
 package com.msekta.timesheet.controllers;
 
+import com.msekta.timesheet.DTOs.project.ProjectDTO;
 import com.msekta.timesheet.DTOs.project.ProjectShortDTO;
 import com.msekta.timesheet.services.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +20,21 @@ public class ProjectController {
     @Autowired
     private ProjectService projectService;
 
-    @GetMapping(value = "/all")
-    public ResponseEntity<List<ProjectShortDTO>> getAllProjects(){
+    @GetMapping(value = "/short/all")
+    public ResponseEntity<List<ProjectShortDTO>> getAllShortProjects(){
         try{
            return ResponseEntity.ok(projectService.getAllShortProjects());
+        }catch(Exception e){
+            e.printStackTrace();
+            return ResponseEntity.badRequest().build();
+        }
+
+    }
+
+    @GetMapping(value = "/all")
+    public ResponseEntity<List<ProjectDTO>> getAllProjects(){
+        try{
+            return ResponseEntity.ok(projectService.getAllProjects());
         }catch(Exception e){
             e.printStackTrace();
             return ResponseEntity.badRequest().build();

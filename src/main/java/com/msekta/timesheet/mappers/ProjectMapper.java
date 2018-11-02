@@ -32,7 +32,7 @@ public class ProjectMapper {
                                                   .map(m -> userMapper.mapModelToShortDTO(m))
                                                   .collect(Collectors.toList()))
                                    .build();
-        return null;
+        return dto;
     }
 
     public ProjectShortDTO mapModelToShortDTO(Project project) {

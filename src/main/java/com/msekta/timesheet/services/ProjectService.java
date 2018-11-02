@@ -50,7 +50,7 @@ public class ProjectService {
     }
 
     public List<ProjectDTO> getAllProjects() {
-        Set<Project> projects = (Set<Project>) projectDao.findAll();
+        List<Project> projects = (List<Project>) projectDao.findAll();
         return projects.stream()
                        .map(p -> projectMapper.mapModelToDTO(p))
                        .collect(Collectors.toList());
