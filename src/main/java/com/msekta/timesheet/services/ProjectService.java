@@ -79,17 +79,5 @@ public class ProjectService {
                          .orElseThrow(() -> new NoSuchElementException());
     }
 
-    public List<UserShortDTO> getUsersToAddToProject(Long id){
-        Project project = projectDao.findById(id).orElseThrow(() -> new NoSuchElementException());
-        return userDao.findAllByProjectsNotAndRole(project, UserRole.WORKER).stream()
-               .map(u -> userMapper.mapModelToShortDTO(u))
-               .collect(Collectors.toList());
 
-    }
-
-    public List<UserShortDTO> getAvailableManagers(){
-        return userDao.findAllByRole(UserRole.MANAGER).stream()
-                      .map(u -> userMapper.mapModelToShortDTO(u))
-                      .collect(Collectors.toList());
-    }
 }

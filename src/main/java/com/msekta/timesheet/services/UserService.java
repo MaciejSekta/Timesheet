@@ -4,6 +4,7 @@ import com.msekta.timesheet.DTOs.project.ProjectDTO;
 import com.msekta.timesheet.DTOs.user.UserDTO;
 import com.msekta.timesheet.DTOs.user.UserDetailsDTO;
 import com.msekta.timesheet.DTOs.user.UserShortDTO;
+import com.msekta.timesheet.enums.UserRole;
 import com.msekta.timesheet.mappers.UserMapper;
 import com.msekta.timesheet.models.Project;
 import com.msekta.timesheet.models.User;
@@ -61,6 +62,27 @@ public class UserService {
         Set<User> users = (Set<User>) userDao.findAll();
         return users.stream()
                     .map(u -> userMapper.mapModelToDTO(u))
+                    .collect(Collectors.toList());
+    }
+
+    public List<UserShortDTO> getUsersToAddToProject(Long id){
+        Project project = projectDao.findById(id).orElseThrow(() -> new NoSuchElementException());
+        return userDao.findAllByProjectsNotAndRole(project, UserRole.WORKER).stream()
+                      .map(u -> userMapper.mapModelToShortDTO(u))
+                      .collect(Collectors.toList());
+
+    }
+
+    public List<UserShortDTO> getAvailableManagers(){
+        return userDao.findAllByRole(UserRole.MANAGER).stream()
+                      .map(u -> userMapper.mapModelToShortDTO(u))
+                      .collect(Collectors.toList());
+    }
+
+    public List<UserShortDTO> getAllShortUsers() {
+        List<User> users = (List<User>) userDao.findAll();
+        return users.stream()
+                    .map(u -> userMapper.mapModelToShortDTO(u))
                     .collect(Collectors.toList());
     }
 

@@ -79,7 +79,7 @@ public class Initialize {
                                .userType(UserType.INTERNAL.name())
                                .workDayHours(8)
                                .active(true)
-                               .role(UserRole.WORKER.name())
+                               .role(UserRole.MANAGER.name())
                                .build();
         users.add(userService.createUser(user2));
         UserDTO user3 = UserDTO.userBuilder()
@@ -98,33 +98,33 @@ public class Initialize {
         ProjectDTO project = ProjectDTO.builder()
                                        .active(true)
                                        .name("Project1")
-                                       .manager(UserShortDTO.builder().id(1L).build())
+                                       .manager(UserShortDTO.builder().id(2L).build())
                                        .members(Arrays.asList(UserShortDTO.builder().id(1L).build(),
-                                                               UserShortDTO.builder().id(2L).build()))
+                                                               UserShortDTO.builder().id(3L).build()))
                                        .build();
         projects.add(projectService.createProject(project));
         ProjectDTO project1 = ProjectDTO.builder()
                                         .active(true)
                                         .name("Project2")
                                         .manager(UserShortDTO.builder().id(2L).build())
-                                        .members(Arrays.asList(UserShortDTO.builder().id(2L).build(),
+                                        .members(Arrays.asList(UserShortDTO.builder().id(4L).build(),
                                                                 UserShortDTO.builder().id(3L).build()))
                                         .build();
         projects.add(projectService.createProject(project1));
         ProjectDTO project2 = ProjectDTO.builder()
                                         .active(true)
                                         .name("Project3")
-                                        .manager(UserShortDTO.builder().id(3L).build())
+                                        .manager(UserShortDTO.builder().id(2L).build())
                                         .members(Arrays.asList(UserShortDTO.builder().id(1L).build(),
-                                                                UserShortDTO.builder().id(2L).build()))
+                                                                UserShortDTO.builder().id(3L).build()))
                                         .build();
         projects.add(projectService.createProject(project2));
         ProjectDTO project3 = ProjectDTO.builder()
                                         .active(true)
                                         .name("Project4")
-                                        .manager(UserShortDTO.builder().id(1L).build())
-                                        .members(Arrays.asList(UserShortDTO.builder().id(2L).build(),
-                                                                UserShortDTO.builder().id(3L).build()))
+                                        .manager(UserShortDTO.builder().id(2L).build())
+                                        .members(Arrays.asList(UserShortDTO.builder().id(4L).build(),
+                                                                UserShortDTO.builder().id(1L).build()))
                                         .build();
         projects.add(projectService.createProject(project3));
     }

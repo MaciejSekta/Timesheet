@@ -2,7 +2,6 @@ package com.msekta.timesheet.controllers;
 
 import com.msekta.timesheet.DTOs.project.ProjectDTO;
 import com.msekta.timesheet.DTOs.project.ProjectShortDTO;
-import com.msekta.timesheet.DTOs.user.UserShortDTO;
 import com.msekta.timesheet.services.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -38,26 +37,6 @@ public class ProjectController {
             return ResponseEntity.badRequest().build();
         }
 
-    }
-
-    @GetMapping(value = "/members/{projectId}")
-    public ResponseEntity<List<UserShortDTO>> getUsersToAddToProject(@PathVariable("projectId") Long id){
-        try{
-            return ResponseEntity.ok(projectService.getUsersToAddToProject(id));
-        }catch (Exception e){
-            e.printStackTrace();
-            return ResponseEntity.noContent().build();
-        }
-    }
-
-    @GetMapping(value = "/managers")
-    public ResponseEntity<List<UserShortDTO>> getAvailableManagers(){
-        try{
-            return ResponseEntity.ok(projectService.getAvailableManagers());
-        }catch (Exception e){
-            e.printStackTrace();
-            return ResponseEntity.noContent().build();
-        }
     }
 
     @PutMapping
