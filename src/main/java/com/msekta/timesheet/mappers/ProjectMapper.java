@@ -45,10 +45,7 @@ public class ProjectMapper {
     public Project mapDTOToModel(ProjectDTO dto, Project model) {
         model.setName(dto.getName());
         model.setActive(dto.getActive());
-        model.setMembers(dto.getMembers()
-                             .stream()
-                             .map(m -> userService.findUserById(m.getId()))
-                             .collect(Collectors.toList()));
+        model.setMembers(userService.setUsersFromDTO(dto));
         model.setManager(userService.findUserById(dto.getManager() .getId()));
         return model;
     }

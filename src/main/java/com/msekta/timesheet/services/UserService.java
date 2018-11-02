@@ -1,9 +1,13 @@
 package com.msekta.timesheet.services;
 
+import com.msekta.timesheet.DTOs.project.ProjectDTO;
 import com.msekta.timesheet.DTOs.user.UserDTO;
 import com.msekta.timesheet.DTOs.user.UserDetailsDTO;
+import com.msekta.timesheet.DTOs.user.UserShortDTO;
 import com.msekta.timesheet.mappers.UserMapper;
+import com.msekta.timesheet.models.Project;
 import com.msekta.timesheet.models.User;
+import com.msekta.timesheet.repo.ProjectDao;
 import com.msekta.timesheet.repo.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,15 +22,18 @@ public class UserService {
 
     private UserDao userDao;
     private UserMapper userMapper;
+    private ProjectDao projectDao;
 
     @Autowired
-    public UserService(UserDao userDao, UserMapper userMapper) {
+    public UserService(UserDao userDao, UserMapper userMapper, ProjectDao projectDao) {
         this.userDao = userDao;
         this.userMapper = userMapper;
+        this.projectDao = projectDao;
     }
 
     public User createUser(UserDTO userDto) {
-        User user = userMapper.mapDTOToModel(userDto, User.builder().build());
+        User user = userMapper.mapDTOToModel(userDto, User.builder()
+                                                          .build());
         return userDao.save(user);
     }
 
@@ -57,9 +64,29 @@ public class UserService {
                     .collect(Collectors.toList());
     }
 
-    public User findUserById(Long userId){
+    public User findUserById(Long userId) {
         // to delete when sec will be added
         return userDao.findById(userId)
-               .orElse(((List<User>)userDao.findAll()).stream().findAny().get());
+                      .orElse(((List<User>) userDao.findAll()).stream()
+                                                              .findAny()
+                                                              .get());
+    }
+
+    public List<User> setUsersFromDTO(ProjectDTO dto) {
+        if (dto.getId() != null) {
+            Project project = projectDao.findById(dto.getId())
+                                        .orElseThrow(() -> new NoSuchElementException());
+            List<Long> users = dto.getMembers().stream()
+                                       .map(m -> m.getId())
+                                       .collect(Collectors.toList());
+            List<User> membersOfProject = userDao.findAllByIdNotInAndProjects(users, project);
+            membersOfProject.forEach(u -> {
+                u.getProjects()
+                 .remove(project);
+            });
+        }
+        return dto.getMembers().stream()
+                       .map(m -> findUserById(m.getId()))
+                       .collect(Collectors.toList());
     }
 }
