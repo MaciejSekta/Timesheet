@@ -53,18 +53,18 @@ public class Initialize {
 
     private void initializeUsers() {
         UserDTO user = UserDTO.userBuilder()
-                              .name("User")
-                              .surname("1")
+                              .name("Adam")
+                              .surname("Nowak")
                               .birthday(LocalDate.now())
                               .userType(UserType.INTERNAL.name())
                               .workDayHours(8)
                               .active(true)
-                              .role(UserRole.ADMIN.name())
+                              .role(UserRole.WORKER.name())
                               .build();
         users.add(userService.createUser(user));
         UserDTO user1 = UserDTO.userBuilder()
-                               .name("User")
-                               .surname("2")
+                               .name("Jan")
+                               .surname("Kowalski")
                                .birthday(LocalDate.now())
                                .userType(UserType.EXTERNAL.name())
                                .workDayHours(8)
@@ -73,8 +73,8 @@ public class Initialize {
                                .build();
         users.add(userService.createUser(user1));
         UserDTO user2 = UserDTO.userBuilder()
-                               .name("User")
-                               .surname("3")
+                               .name("Elon")
+                               .surname("Musk")
                                .birthday(LocalDate.now())
                                .userType(UserType.INTERNAL.name())
                                .workDayHours(8)
@@ -83,8 +83,8 @@ public class Initialize {
                                .build();
         users.add(userService.createUser(user2));
         UserDTO user3 = UserDTO.userBuilder()
-                               .name("User")
-                               .surname("4")
+                               .name("Mark")
+                               .surname("Zucc")
                                .birthday(LocalDate.now())
                                .userType(UserType.EXTERNAL.name())
                                .workDayHours(8)

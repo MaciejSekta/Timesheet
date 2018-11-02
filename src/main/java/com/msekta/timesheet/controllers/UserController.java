@@ -17,7 +17,7 @@ public class UserController {
     private UserService userService;
 
     @GetMapping(value = "/short/all")
-    public ResponseEntity<List<UserShortDTO>> getAllProjects(){
+    public ResponseEntity<List<UserShortDTO>> getAllAvailableUsers(){
         try{
             return ResponseEntity.ok(userService.getAllShortUsers());
         }catch(Exception e){

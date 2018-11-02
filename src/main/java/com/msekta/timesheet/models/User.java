@@ -29,8 +29,8 @@ public class User {
     private List<Worklog> worklogs;
     @ManyToMany
     @JoinTable(name = "projects_users", joinColumns = {
-            @JoinColumn(name = "project_id")},
-            inverseJoinColumns = {@JoinColumn(name = "user_id")})
+            @JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "project_id")})
     private List<Project> projects;
     private Boolean active;
 

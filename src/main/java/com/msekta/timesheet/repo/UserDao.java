@@ -14,7 +14,7 @@ public interface UserDao extends CrudRepository<User, Long> {
 
     Set<User> findAllByProjectsNot(Project project);
 
-    Set<User> findAllByProjectsNotAndRole(Project project, UserRole role);
+    Set<User> findAllByIdNotInAndRole(List<Long> users, UserRole role);
 
     List<User> findAllByIdNotInAndProjects(List<Long> users, Project project);
 

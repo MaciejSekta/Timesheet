@@ -17,8 +17,8 @@ public class Project {
     private String name;
     @ManyToMany
     @JoinTable(name = "projects_users", joinColumns = {
-            @JoinColumn(name = "user_id")},
-            inverseJoinColumns = {@JoinColumn(name = "project_id")})
+            @JoinColumn(name = "project_id")},
+            inverseJoinColumns = {@JoinColumn(name = "user_id")})
     private List<User> members;
     @ManyToOne
     private User manager;

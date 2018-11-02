@@ -67,7 +67,8 @@ public class UserService {
 
     public List<UserShortDTO> getUsersToAddToProject(Long id){
         Project project = projectDao.findById(id).orElseThrow(() -> new NoSuchElementException());
-        return userDao.findAllByProjectsNotAndRole(project, UserRole.WORKER).stream()
+        List<Long> usersIds = project.getMembers().stream().map(u -> u.getId()).collect(Collectors.toList());
+        return userDao.findAllByIdNotInAndRole(usersIds, UserRole.WORKER).stream()
                       .map(u -> userMapper.mapModelToShortDTO(u))
                       .collect(Collectors.toList());
 
@@ -80,7 +81,7 @@ public class UserService {
     }
 
     public List<UserShortDTO> getAllShortUsers() {
-        List<User> users = (List<User>) userDao.findAll();
+        List<User> users = userDao.findAllByRole(UserRole.WORKER);
         return users.stream()
                     .map(u -> userMapper.mapModelToShortDTO(u))
                     .collect(Collectors.toList());
