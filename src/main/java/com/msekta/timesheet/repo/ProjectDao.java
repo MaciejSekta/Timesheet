@@ -13,4 +13,6 @@ public interface ProjectDao extends CrudRepository<Project, Long> {
     List<Project> findAllByManager(User user);
 
     List<Project> findAllByManager_id(Long id);
+
+    List<Project> findAllByMembers_idAndActive(Long id, Boolean active);
 }

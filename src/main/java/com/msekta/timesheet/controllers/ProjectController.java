@@ -28,6 +28,17 @@ public class ProjectController {
 
     }
 
+    @GetMapping(value = "/user/{id}")
+    public ResponseEntity<List<ProjectShortDTO>> getAllWhereUserIsMember(@PathVariable("id") Long id){
+        try{
+            return ResponseEntity.ok(projectService.getAllWhereUserIsMember(id));
+        }catch(Exception e){
+            e.printStackTrace();
+            return ResponseEntity.badRequest().build();
+        }
+
+    }
+
     @GetMapping(value = "/all")
     public ResponseEntity<List<ProjectDTO>> getAllProjects(){
         try{
@@ -43,6 +54,17 @@ public class ProjectController {
     public ResponseEntity<?> createOrUpdateProject(@RequestBody ProjectDTO project){
         try{
             projectService.udpateProject(project);
+            return ResponseEntity.ok().build();
+        }catch (Exception e){
+            e.printStackTrace();
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<?> changeActiveProject(@PathVariable("id") Long id){
+        try{
+            projectService.changeActiveProject(id);
             return ResponseEntity.ok().build();
         }catch (Exception e){
             e.printStackTrace();

@@ -39,10 +39,15 @@ public class UserService {
     }
 
     public User udpateUser(UserDTO userDto) {
-        User user = userDao.findById(userDto.getId())
-                           .orElseThrow(() -> new NoSuchElementException());
-        userMapper.mapDTOToModel(userDto, user);
-        return userDao.save(user);
+        if (userDto.getId() != null) {
+            User user = userDao.findById(userDto.getId())
+                               .orElseThrow(() -> new NoSuchElementException());
+            userMapper.mapDTOToModel(userDto, user);
+            return userDao.save(user);
+        } else {
+            return createUser(userDto);
+        }
+
     }
 
     public void deleteUser(Long userId) {
@@ -59,23 +64,29 @@ public class UserService {
     }
 
     public List<UserDTO> getAllUsers() {
-        Set<User> users = (Set<User>) userDao.findAll();
+        List<User> users = (List<User>) userDao.findAll();
         return users.stream()
                     .map(u -> userMapper.mapModelToDTO(u))
                     .collect(Collectors.toList());
     }
 
-    public List<UserShortDTO> getUsersToAddToProject(Long id){
-        Project project = projectDao.findById(id).orElseThrow(() -> new NoSuchElementException());
-        List<Long> usersIds = project.getMembers().stream().map(u -> u.getId()).collect(Collectors.toList());
-        return userDao.findAllByIdNotInAndRole(usersIds, UserRole.WORKER).stream()
+    public List<UserShortDTO> getUsersToAddToProject(Long id) {
+        Project project = projectDao.findById(id)
+                                    .orElseThrow(() -> new NoSuchElementException());
+        List<Long> usersIds = project.getMembers()
+                                     .stream()
+                                     .map(u -> u.getId())
+                                     .collect(Collectors.toList());
+        return userDao.findAllByIdNotInAndRole(usersIds, UserRole.WORKER)
+                      .stream()
                       .map(u -> userMapper.mapModelToShortDTO(u))
                       .collect(Collectors.toList());
 
     }
 
-    public List<UserShortDTO> getAvailableManagers(){
-        return userDao.findAllByRole(UserRole.MANAGER).stream()
+    public List<UserShortDTO> getAvailableManagers() {
+        return userDao.findAllByRole(UserRole.MANAGER)
+                      .stream()
                       .map(u -> userMapper.mapModelToShortDTO(u))
                       .collect(Collectors.toList());
     }
@@ -99,17 +110,19 @@ public class UserService {
         if (dto.getId() != null) {
             Project project = projectDao.findById(dto.getId())
                                         .orElseThrow(() -> new NoSuchElementException());
-            List<Long> users = dto.getMembers().stream()
-                                       .map(m -> m.getId())
-                                       .collect(Collectors.toList());
+            List<Long> users = dto.getMembers()
+                                  .stream()
+                                  .map(m -> m.getId())
+                                  .collect(Collectors.toList());
             List<User> membersOfProject = userDao.findAllByIdNotInAndProjects(users, project);
             membersOfProject.forEach(u -> {
                 u.getProjects()
                  .remove(project);
             });
         }
-        return dto.getMembers().stream()
-                       .map(m -> findUserById(m.getId()))
-                       .collect(Collectors.toList());
+        return dto.getMembers()
+                  .stream()
+                  .map(m -> findUserById(m.getId()))
+                  .collect(Collectors.toList());
     }
 }

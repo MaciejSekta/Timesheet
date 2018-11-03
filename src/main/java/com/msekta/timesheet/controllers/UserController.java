@@ -1,5 +1,6 @@
 package com.msekta.timesheet.controllers;
 
+import com.msekta.timesheet.DTOs.user.UserDTO;
 import com.msekta.timesheet.DTOs.user.UserShortDTO;
 import com.msekta.timesheet.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,16 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @GetMapping(value = "/all")
+    public ResponseEntity<List<UserDTO>> getAllUsers(){
+        try{
+            return ResponseEntity.ok(userService.getAllUsers());
+        }catch(Exception e){
+            e.printStackTrace();
+            return ResponseEntity.badRequest().build();
+        }
+    }
 
     @GetMapping(value = "/short/all")
     public ResponseEntity<List<UserShortDTO>> getAllAvailableUsers(){
@@ -43,6 +54,17 @@ public class UserController {
         }catch (Exception e){
             e.printStackTrace();
             return ResponseEntity.noContent().build();
+        }
+    }
+
+    @PutMapping
+    public ResponseEntity<?> createOrUpdate(@RequestBody UserDTO userDto){
+        try{
+            userService.udpateUser(userDto);
+            return ResponseEntity.ok().build();
+        }catch(Exception e){
+            e.printStackTrace();
+            return ResponseEntity.badRequest().build();
         }
     }
 }

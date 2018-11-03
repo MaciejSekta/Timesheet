@@ -2,8 +2,6 @@ package com.msekta.timesheet.services;
 
 import com.msekta.timesheet.DTOs.project.ProjectDTO;
 import com.msekta.timesheet.DTOs.project.ProjectShortDTO;
-import com.msekta.timesheet.DTOs.user.UserShortDTO;
-import com.msekta.timesheet.enums.UserRole;
 import com.msekta.timesheet.mappers.ProjectMapper;
 import com.msekta.timesheet.mappers.UserMapper;
 import com.msekta.timesheet.models.Project;
@@ -33,24 +31,29 @@ public class ProjectService {
     }
 
     public Project createProject(ProjectDTO projectDTO) {
-        Project project = projectMapper.mapDTOToModel(projectDTO, Project.builder().build());
+        Project project = projectMapper.mapDTOToModel(projectDTO, Project.builder()
+                                                                         .build());
         return projectDao.save(project);
     }
 
     public Project udpateProject(ProjectDTO projectDTO) {
-        if(projectDTO.getId() != null) {
+        if (projectDTO.getId() != null) {
             Project project = projectDao.findById(projectDTO.getId())
                                         .orElseThrow(() -> new NoSuchElementException());
             return projectDao.save(projectMapper.mapDTOToModel(projectDTO, project));
-        }else{
+        } else {
             return createProject(projectDTO);
         }
     }
 
-    public void deleteProject(Long projectId) {
+    public void changeActiveProject(Long projectId) {
         Project project = projectDao.findById(projectId)
                                     .orElseThrow(() -> new NoSuchElementException());
-        project.setActive(false);
+        if (project.getActive()) {
+            project.setActive(false);
+        } else {
+            project.setActive(true);
+        }
         projectDao.save(project);
     }
 
@@ -74,7 +77,14 @@ public class ProjectService {
                        .collect(Collectors.toList());
     }
 
-    public Project findProjectById(Long projectId){
+    public List<ProjectShortDTO> getAllWhereUserIsMember(Long id) {
+        List<Project> projects = projectDao.findAllByMembers_idAndActive(id, true);
+        return projects.stream()
+                       .map(p -> projectMapper.mapModelToShortDTO(p))
+                       .collect(Collectors.toList());
+    }
+
+    public Project findProjectById(Long projectId) {
         return projectDao.findById(projectId)
                          .orElseThrow(() -> new NoSuchElementException());
     }

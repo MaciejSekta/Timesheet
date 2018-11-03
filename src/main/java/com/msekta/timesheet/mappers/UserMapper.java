@@ -20,6 +20,7 @@ public class UserMapper {
                              .role(model.getRole().name())
                              .userType(model.getUserType().name())
                              .workDayHours(model.getWorkDayHours())
+                             .active(model.getActive())
                              .build();
         return dto;
     }
