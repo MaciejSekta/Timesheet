@@ -6,10 +6,15 @@ import com.msekta.timesheet.DTOs.user.UserShortDTO;
 import com.msekta.timesheet.enums.UserRole;
 import com.msekta.timesheet.enums.UserType;
 import com.msekta.timesheet.models.User;
+import com.msekta.timesheet.services.PaymentInfoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
 public class UserMapper {
+
+    @Autowired
+    private PaymentInfoService paymentInfoService;
 
     public UserDTO mapModelToDTO(User model) {
         UserDTO dto = UserDTO.userBuilder()
@@ -17,10 +22,11 @@ public class UserMapper {
                              .name(model.getName())
                              .surname(model.getSurname())
                              .birthday(model.getBirthday())
-                             .role(model.getRole().name())
-                             .userType(model.getUserType().name())
+                             .role(model.getRole().getName())
+                             .userType(model.getUserType().getName())
                              .workDayHours(model.getWorkDayHours())
                              .active(model.getActive())
+                             .paymentInfo(paymentInfoService.mapModelToDTO(model.getPaymentInfo()))
                              .build();
         return dto;
     }
@@ -39,8 +45,9 @@ public class UserMapper {
         model.setActive(dto.getActive());
         model.setBirthday(dto.getBirthday());
         model.setWorkDayHours(dto.getWorkDayHours());
-        model.setUserType(UserType.valueOf(dto.getUserType()));
-        model.setRole(UserRole.valueOf(dto.getRole()));
+        model.setUserType(UserType.getEnum(dto.getUserType()));
+        model.setPaymentInfo(paymentInfoService.mapDTOToModel(dto.getPaymentInfo(), model));
+        model.setRole(UserRole.getEnum(dto.getRole()));
         return model;
     }
 }

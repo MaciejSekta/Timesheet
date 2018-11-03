@@ -33,8 +33,8 @@ public class UserService {
     }
 
     public User createUser(UserDTO userDto) {
-        User user = userMapper.mapDTOToModel(userDto, User.builder()
-                                                          .build());
+        User user = userDao.save(User.builder().build());
+        userMapper.mapDTOToModel(userDto, user);
         return userDao.save(user);
     }
 

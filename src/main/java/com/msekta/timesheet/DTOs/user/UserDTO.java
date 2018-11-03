@@ -1,5 +1,6 @@
 package com.msekta.timesheet.DTOs.user;
 
+import com.msekta.timesheet.DTOs.PaymentInfoDTO;
 import lombok.Builder;
 import lombok.Data;
 
@@ -17,4 +18,5 @@ public class UserDTO extends LoginDTO {
     private Integer workDayHours;
     private Boolean active;
     private String role;
+    private PaymentInfoDTO paymentInfo;
 }
