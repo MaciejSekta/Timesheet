@@ -35,6 +35,7 @@ public class User {
     @OneToOne
     private PaymentInfo paymentInfo;
     private Boolean active;
+    private Integer ratePerHour;
 
 
 

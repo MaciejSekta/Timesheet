@@ -18,5 +18,6 @@ public class UserDTO extends LoginDTO {
     private Integer workDayHours;
     private Boolean active;
     private String role;
+    private Integer ratePerHour;
     private PaymentInfoDTO paymentInfo;
 }

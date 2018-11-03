@@ -25,6 +25,7 @@ public class UserMapper {
                              .role(model.getRole().getName())
                              .userType(model.getUserType().getName())
                              .workDayHours(model.getWorkDayHours())
+                             .ratePerHour(model.getRatePerHour())
                              .active(model.getActive())
                              .paymentInfo(paymentInfoService.mapModelToDTO(model.getPaymentInfo()))
                              .build();
@@ -45,6 +46,7 @@ public class UserMapper {
         model.setActive(dto.getActive());
         model.setBirthday(dto.getBirthday());
         model.setWorkDayHours(dto.getWorkDayHours());
+        model.setRatePerHour(dto.getRatePerHour());
         model.setUserType(UserType.getEnum(dto.getUserType()));
         model.setPaymentInfo(paymentInfoService.mapDTOToModel(dto.getPaymentInfo(), model));
         model.setRole(UserRole.getEnum(dto.getRole()));
