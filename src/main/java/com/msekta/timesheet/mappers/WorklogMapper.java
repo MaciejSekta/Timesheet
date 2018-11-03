@@ -35,7 +35,7 @@ public class WorklogMapper {
                                    .comment(model.getComment())
                                    .user(userMapper.mapModelToShortDTO(model.getUser()))
                                    .project(projectMapper.mapModelToShortDTO(model.getProject()))
-                                   .status(model.getStatus().name())
+                                   .status(model.getStatus().getName())
                                    .build();
         return dto;
     }
@@ -52,7 +52,8 @@ public class WorklogMapper {
         }
         model.setUser(userService.findUserById(dto.getUser().getId()));
         model.setProject(projectService.findProjectById(dto.getProject().getId()));
-        model.setStatus(WorklogStatus.valueOf(dto.getStatus()));
+        model.setStatus(WorklogStatus.getEnum(dto.getStatus()));
+        model.setDuration(dto.getHourTo() - dto.getHourFrom());
         model.setActive(true);
         return model;
     }

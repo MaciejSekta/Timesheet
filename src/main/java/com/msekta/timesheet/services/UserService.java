@@ -73,6 +73,9 @@ public class UserService {
     public List<UserShortDTO> getUsersToAddToProject(Long id) {
         Project project = projectDao.findById(id)
                                     .orElseThrow(() -> new NoSuchElementException());
+        if(project.getMembers().isEmpty()){
+            return getAllShortUsers();
+        }
         List<Long> usersIds = project.getMembers()
                                      .stream()
                                      .map(u -> u.getId())
