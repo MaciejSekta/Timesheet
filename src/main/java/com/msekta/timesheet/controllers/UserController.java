@@ -67,4 +67,15 @@ public class UserController {
             return ResponseEntity.badRequest().build();
         }
     }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<?> changeActiveUser(@PathVariable("id") Long id){
+        try{
+            userService.changeActiveUser(id);
+            return ResponseEntity.ok().build();
+        }catch(Exception e){
+            e.printStackTrace();
+            return ResponseEntity.badRequest().build();
+        }
+    }
 }

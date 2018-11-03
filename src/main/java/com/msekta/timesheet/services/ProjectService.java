@@ -49,11 +49,7 @@ public class ProjectService {
     public void changeActiveProject(Long projectId) {
         Project project = projectDao.findById(projectId)
                                     .orElseThrow(() -> new NoSuchElementException());
-        if (project.getActive()) {
-            project.setActive(false);
-        } else {
-            project.setActive(true);
-        }
+        project.setActive(!project.getActive());
         projectDao.save(project);
     }
 

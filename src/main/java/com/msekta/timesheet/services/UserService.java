@@ -50,10 +50,10 @@ public class UserService {
 
     }
 
-    public void deleteUser(Long userId) {
-        User user = userDao.findById(userId)
-                           .orElseThrow(() -> new NoSuchElementException());
-        user.setActive(false);
+    public void changeActiveUser(Long id) {
+        User user = userDao.findById(id)
+                                    .orElseThrow(() -> new NoSuchElementException());
+        user.setActive(!user.getActive());
         userDao.save(user);
     }
 
