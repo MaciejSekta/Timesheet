@@ -19,7 +19,7 @@ public class FinanceController {
     @GetMapping
     public ResponseEntity<?> getAllShortProjects(){
         try{
-            pdfService.createPdf("test.pdf");
+            pdfService.createPdf("test.pdf", 11);
             return ResponseEntity.ok().build();
         }catch(Exception e){
             e.printStackTrace();

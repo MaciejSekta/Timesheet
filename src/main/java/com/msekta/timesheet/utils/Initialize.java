@@ -83,7 +83,7 @@ public class Initialize {
                                                     .nip("0987654")
                                                     .city("Pszczyna")
                                                     .houseNo("12")
-                                                    .name("Elon")
+                                                    .name("Elon Company")
                                                     .street("cos")
                                                     .postalCode("12-12")
                                                     .build();
@@ -105,7 +105,7 @@ public class Initialize {
                                                     .bankAccountNo("1234567")
                                                     .city("Pszczyna")
                                                     .houseNo("12")
-                                                    .name("Elon")
+                                                    .name("Elon Company")
                                                     .street("cos")
                                                     .postalCode("12-12")
                                                     .build();

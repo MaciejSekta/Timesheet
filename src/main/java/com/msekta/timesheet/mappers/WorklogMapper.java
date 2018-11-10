@@ -48,7 +48,7 @@ public class WorklogMapper {
         model.setComment(dto.getComment());
         // to delete when sec will be added
         if(dto.getUser() == null){
-            dto.setUser(UserShortDTO.builder().id(1L).build());
+            dto.setUser(UserShortDTO.builder().id(3L).build());
         }
         model.setUser(userService.findUserById(dto.getUser().getId()));
         model.setProject(projectService.findProjectById(dto.getProject().getId()));

@@ -1,5 +1,6 @@
 package com.msekta.timesheet.repo;
 
+import com.msekta.timesheet.enums.WorklogStatus;
 import com.msekta.timesheet.models.Project;
 import com.msekta.timesheet.models.User;
 import com.msekta.timesheet.models.Worklog;
@@ -21,4 +22,8 @@ public interface WorklogDao extends CrudRepository<Worklog, Long> {
     List<Worklog> findAllByUser_idAndDateBetween(Long id, LocalDate min, LocalDate max);
 
     List<Worklog> findAllByProjectIn(List<Project> projects);
+
+    List<Worklog> findAllByUserAndDate(User user, LocalDate date);
+
+    Integer countAllByStatusAndDateBetween(WorklogStatus status, LocalDate min, LocalDate max);
 }
