@@ -29,9 +29,9 @@ public class StatsService {
         this.worklogDao = worklogDao;
     }
 
-    public List<StatsDTO> getWeekHours() {
-        User user = userDao.findById(3L)
-                           .orElseThrow(() -> new NoSuchElementException());
+    public List<StatsDTO> getWeekHours(Long userId) {
+        User user = userDao.findById(userId)
+                           .orElse(userDao.findById(3L).orElseThrow(() -> new NoSuchElementException()));
         List<StatsDTO> statsList = new ArrayList<>();
         LocalDate monday = LocalDate.now()
                                     .with(DayOfWeek.MONDAY);
@@ -41,9 +41,9 @@ public class StatsService {
         return statsList;
     }
 
-    public List<StatsDTO> getMonthHours() {
-        User user = userDao.findById(3L)
-                           .orElseThrow(() -> new NoSuchElementException());
+    public List<StatsDTO> getMonthHours(Long userId) {
+        User user = userDao.findById(userId)
+                           .orElse(userDao.findById(3L).orElseThrow(() -> new NoSuchElementException()));
         List<StatsDTO> statsList = new ArrayList<>();
         LocalDate firstDayOfMonth = LocalDate.now()
                                              .withDayOfMonth(1);
@@ -53,9 +53,9 @@ public class StatsService {
         return statsList;
     }
 
-    public List<StatsDTO> getYearHoursByMonth() {
-        User user = userDao.findById(3L)
-                           .orElseThrow(() -> new NoSuchElementException());
+    public List<StatsDTO> getYearHoursByMonth(Long userId) {
+        User user = userDao.findById(userId)
+                           .orElse(userDao.findById(3L).orElseThrow(() -> new NoSuchElementException()));
         List<StatsDTO> statsList = new ArrayList<>();
         LocalDate firstDayOfMonth = LocalDate.now()
                                              .withDayOfMonth(1);
@@ -90,9 +90,9 @@ public class StatsService {
         }
     }
 
-    public List<StatsDTO> getWeekProjects() {
-        User user = userDao.findById(3L)
-                           .orElseThrow(() -> new NoSuchElementException());
+    public List<StatsDTO> getWeekProjects(Long userId) {
+        User user = userDao.findById(userId)
+                           .orElse(userDao.findById(3L).orElseThrow(() -> new NoSuchElementException()));
         List<StatsDTO> statsList = new ArrayList<>();
         LocalDate monday = LocalDate.now()
                                     .with(DayOfWeek.MONDAY);
@@ -104,9 +104,9 @@ public class StatsService {
         return statsList;
     }
 
-    public List<StatsDTO> getMonthProjects() {
-        User user = userDao.findById(3L)
-                           .orElseThrow(() -> new NoSuchElementException());
+    public List<StatsDTO> getMonthProjects(Long userId) {
+        User user = userDao.findById(userId)
+                           .orElse(userDao.findById(3L).orElseThrow(() -> new NoSuchElementException()));
         List<StatsDTO> statsList = new ArrayList<>();
         LocalDate firstDayOfMonth = LocalDate.now()
                                              .withDayOfMonth(1);
@@ -118,9 +118,9 @@ public class StatsService {
         return statsList;
     }
 
-    public List<StatsDTO> getYearProjects() {
-        User user = userDao.findById(3L)
-                           .orElseThrow(() -> new NoSuchElementException());
+    public List<StatsDTO> getYearProjects(Long userId) {
+        User user = userDao.findById(userId)
+                           .orElse(userDao.findById(3L).orElseThrow(() -> new NoSuchElementException()));
         List<StatsDTO> statsList = new ArrayList<>();
         LocalDate firstDayOfMonth = LocalDate.now()
                                              .withDayOfMonth(1);
@@ -153,45 +153,45 @@ public class StatsService {
         }
     }
 
-    public List<StatsDTO> getWeekWorklogsStatus(){
-        User user = userDao.findById(3L)
-                           .orElseThrow(() -> new NoSuchElementException());
+    public List<StatsDTO> getWeekWorklogsStatus(Long userId){
+        User user = userDao.findById(userId)
+                           .orElse(userDao.findById(3L).orElseThrow(() -> new NoSuchElementException()));
         LocalDate monday = LocalDate.now()
                                     .with(DayOfWeek.MONDAY);
         LocalDate friday = LocalDate.now()
                                     .with(DayOfWeek.FRIDAY);
-        return getWorklogsGroupedByStatusAndAddToList(monday, friday);
+        return getWorklogsGroupedByStatusAndAddToList(monday, friday, user);
 
     }
 
-    public List<StatsDTO> getMonthWorklogsStatus(){
-        User user = userDao.findById(3L)
-                           .orElseThrow(() -> new NoSuchElementException());
+    public List<StatsDTO> getMonthWorklogsStatus(Long userId){
+        User user = userDao.findById(userId)
+                           .orElse(userDao.findById(3L).orElseThrow(() -> new NoSuchElementException()));
         LocalDate firstDayOfMonth = LocalDate.now()
                                              .withDayOfMonth(1);
         LocalDate lastDayOfMonth = LocalDate.now()
                                             .withDayOfMonth(firstDayOfMonth.lengthOfMonth());
-        return getWorklogsGroupedByStatusAndAddToList(firstDayOfMonth, lastDayOfMonth);
+        return getWorklogsGroupedByStatusAndAddToList(firstDayOfMonth, lastDayOfMonth, user);
     }
 
-    public List<StatsDTO> getYearWorklogsStatus(){
-        User user = userDao.findById(3L)
-                           .orElseThrow(() -> new NoSuchElementException());
+    public List<StatsDTO> getYearWorklogsStatus(Long userId){
+        User user = userDao.findById(userId)
+                           .orElse(userDao.findById(3L).orElseThrow(() -> new NoSuchElementException()));
         LocalDate firstDayOfMonth = LocalDate.now()
                                              .withDayOfMonth(1);
         LocalDate lastDayOfMonth = LocalDate.now().withDayOfMonth(firstDayOfMonth.lengthOfMonth());
         LocalDate previouYear = firstDayOfMonth.minusMonths(11);
-        return getWorklogsGroupedByStatusAndAddToList(previouYear, lastDayOfMonth);
+        return getWorklogsGroupedByStatusAndAddToList(previouYear, lastDayOfMonth, user);
     }
 
-    private StatsDTO getCountOfWorklogsWithStatus(WorklogStatus status, LocalDate min, LocalDate max){
-        return StatsDTO.builder().name(status.getName()).value(worklogDao.countAllByStatusAndDateBetween(status, min, max)).build();
+    private StatsDTO getCountOfWorklogsWithStatus(WorklogStatus status, User user, LocalDate min, LocalDate max){
+        return StatsDTO.builder().name(status.getName()).value(worklogDao.countAllByStatusAndUserAndDateBetween(status, user, min, max)).build();
     }
 
-    private List<StatsDTO> getWorklogsGroupedByStatusAndAddToList(LocalDate min, LocalDate max){
-        StatsDTO statsOfAccepted = getCountOfWorklogsWithStatus(WorklogStatus.ACCEPTED, min, max);
-        StatsDTO statsOfPending = getCountOfWorklogsWithStatus(WorklogStatus.PENDING, min, max);
-        StatsDTO statsOfRejected = getCountOfWorklogsWithStatus(WorklogStatus.REJECTED, min, max);
+    private List<StatsDTO> getWorklogsGroupedByStatusAndAddToList(LocalDate min, LocalDate max, User user){
+        StatsDTO statsOfAccepted = getCountOfWorklogsWithStatus(WorklogStatus.ACCEPTED, user, min, max);
+        StatsDTO statsOfPending = getCountOfWorklogsWithStatus(WorklogStatus.PENDING, user, min, max);
+        StatsDTO statsOfRejected = getCountOfWorklogsWithStatus(WorklogStatus.REJECTED, user, min, max);
         return Arrays.asList(statsOfAccepted, statsOfPending, statsOfRejected);
     }
 }

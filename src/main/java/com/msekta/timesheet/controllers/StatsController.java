@@ -4,10 +4,7 @@ import com.msekta.timesheet.DTOs.StatsDTO;
 import com.msekta.timesheet.services.StatsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,82 +16,82 @@ public class StatsController {
     @Autowired
     private StatsService statsService;
 
-    @GetMapping(path = "/week/hours")
-    public ResponseEntity<List<StatsDTO>> getWeekHours(){
+    @GetMapping(path = "/{id}/week/hours")
+    public ResponseEntity<List<StatsDTO>> getWeekHours(@PathVariable("id") Long userId){
         try{
-            return ResponseEntity.ok(statsService.getWeekHours());
+            return ResponseEntity.ok(statsService.getWeekHours(userId));
         } catch(Exception e){
             return ResponseEntity.badRequest().build();
         }
     }
 
-    @GetMapping(path = "/week/projects")
-    public ResponseEntity<List<StatsDTO>> getWeekProjects(){
+    @GetMapping(path = "/{id}/week/projects")
+    public ResponseEntity<List<StatsDTO>> getWeekProjects(@PathVariable("id") Long userId){
         try{
-            return ResponseEntity.ok(statsService.getWeekProjects());
+            return ResponseEntity.ok(statsService.getWeekProjects(userId));
         } catch(Exception e){
             return ResponseEntity.badRequest().build();
         }
     }
 
-    @GetMapping(path = "/week/status")
-    public ResponseEntity<List<StatsDTO>> getWeekStatus(){
+    @GetMapping(path = "/{id}/week/status")
+    public ResponseEntity<List<StatsDTO>> getWeekStatus(@PathVariable("id") Long userId){
         try{
-            return ResponseEntity.ok(statsService.getWeekWorklogsStatus());
+            return ResponseEntity.ok(statsService.getWeekWorklogsStatus(userId));
         } catch(Exception e){
             return ResponseEntity.badRequest().build();
         }
     }
 
-    @GetMapping(path = "/month/hours")
-    public ResponseEntity<List<StatsDTO>> getMonthHours(){
+    @GetMapping(path = "/{id}/month/hours")
+    public ResponseEntity<List<StatsDTO>> getMonthHours(@PathVariable("id") Long userId){
         try{
-            return ResponseEntity.ok(statsService.getMonthHours());
+            return ResponseEntity.ok(statsService.getMonthHours(userId));
         } catch(Exception e){
             return ResponseEntity.badRequest().build();
         }
     }
 
-    @GetMapping(path = "/month/projects")
-    public ResponseEntity<List<StatsDTO>> getMonthProjects(){
+    @GetMapping(path = "/{id}/month/projects")
+    public ResponseEntity<List<StatsDTO>> getMonthProjects(@PathVariable("id") Long userId){
         try{
-            return ResponseEntity.ok(statsService.getMonthProjects());
+            return ResponseEntity.ok(statsService.getMonthProjects(userId));
         } catch(Exception e){
             return ResponseEntity.badRequest().build();
         }
     }
 
-    @GetMapping(path = "/month/status")
-    public ResponseEntity<List<StatsDTO>> getMonthStatus(){
+    @GetMapping(path = "/{id}/month/status")
+    public ResponseEntity<List<StatsDTO>> getMonthStatus(@PathVariable("id") Long userId){
         try{
-            return ResponseEntity.ok(statsService.getMonthWorklogsStatus());
+            return ResponseEntity.ok(statsService.getMonthWorklogsStatus(userId));
         } catch(Exception e){
             return ResponseEntity.badRequest().build();
         }
     }
 
-    @GetMapping(path = "/year/hours")
-    public ResponseEntity<List<StatsDTO>> getYearHours(){
+    @GetMapping(path = "/{id}/year/hours")
+    public ResponseEntity<List<StatsDTO>> getYearHours(@PathVariable("id") Long userId){
         try{
-            return ResponseEntity.ok(statsService.getYearHoursByMonth());
+            return ResponseEntity.ok(statsService.getYearHoursByMonth(userId));
         } catch(Exception e){
             return ResponseEntity.badRequest().build();
         }
     }
 
-    @GetMapping(path = "/year/projects")
-    public ResponseEntity<List<StatsDTO>> getYearProjects(){
+    @GetMapping(path = "/{id}/year/projects")
+    public ResponseEntity<List<StatsDTO>> getYearProjects(@PathVariable("id") Long userId){
         try{
-            return ResponseEntity.ok(statsService.getYearProjects());
+            return ResponseEntity.ok(statsService.getYearProjects(userId));
         } catch(Exception e){
             return ResponseEntity.badRequest().build();
         }
     }
 
-    @GetMapping(path = "/year/status")
-    public ResponseEntity<List<StatsDTO>> getYearStatus(){
+    @GetMapping(path = "/{id}/year/status")
+    public ResponseEntity<List<StatsDTO>> getYearStatus(@PathVariable("id") Long userId){
         try{
-            return ResponseEntity.ok(statsService.getYearWorklogsStatus());
+            return ResponseEntity.ok(statsService.getYearWorklogsStatus(userId));
         } catch(Exception e){
             return ResponseEntity.badRequest().build();
         }

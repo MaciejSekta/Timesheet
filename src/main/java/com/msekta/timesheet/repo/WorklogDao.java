@@ -25,5 +25,5 @@ public interface WorklogDao extends CrudRepository<Worklog, Long> {
 
     List<Worklog> findAllByUserAndDate(User user, LocalDate date);
 
-    Integer countAllByStatusAndDateBetween(WorklogStatus status, LocalDate min, LocalDate max);
+    Integer countAllByStatusAndUserAndDateBetween(WorklogStatus status, User user, LocalDate min, LocalDate max);
 }
