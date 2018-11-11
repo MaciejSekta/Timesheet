@@ -1,10 +1,10 @@
 spring:
   jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
     hibernate:
       ddl-auto: update
   datasource:
     platform: postgres
-    url: postgres://mezfeqnqlirgrh:53948d1017fe47fb620420fc10c2cb50beb7b74a410be3d6691dd9055689aff6@ec2-54-246-84-200.eu-west-1.compute.amazonaws.com:5432/d4s8g6bsn4lgdv
-    username: mezfeqnqlirgrh
-    password: 53948d1017fe47fb620420fc10c2cb50beb7b74a410be3d6691dd9055689aff6
+    url: jdbc:postgresql://ec2-54-246-84-200.eu-west-1.compute.amazonaws.com:5432/d4s8g6bsn4lgdv?user=mezfeqnqlirgrh&password=53948d1017fe47fb620420fc10c2cb50beb7b74a410be3d6691dd9055689aff6
+    driverClassName: org.postgresql.Driver
