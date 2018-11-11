@@ -2,10 +2,9 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
   datasource:
-    platform: mysql
-    url: jdbc:mysql://localhost:3306/timesheetdb
-    username: user
-    password: password
-    driver: com.mysql.jdbc.Driver
+    platform: postgres
+    url: postgres://mezfeqnqlirgrh:53948d1017fe47fb620420fc10c2cb50beb7b74a410be3d6691dd9055689aff6@ec2-54-246-84-200.eu-west-1.compute.amazonaws.com:5432/d4s8g6bsn4lgdv
+    username: mezfeqnqlirgrh
+    password: 53948d1017fe47fb620420fc10c2cb50beb7b74a410be3d6691dd9055689aff6
