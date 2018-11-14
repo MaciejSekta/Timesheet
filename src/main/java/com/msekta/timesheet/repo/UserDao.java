@@ -7,6 +7,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Repository
@@ -19,4 +20,6 @@ public interface UserDao extends CrudRepository<User, Long> {
     List<User> findAllByIdNotInAndProjects(List<Long> users, Project project);
 
     List<User> findAllByRole(UserRole role);
+
+    Optional<User> findByUsername(String username);
 }

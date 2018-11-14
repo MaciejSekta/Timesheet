@@ -81,7 +81,7 @@ public class StatsService {
         for (LocalDate date = min; date.isBefore(max.plusDays(1)); date = date.plusDays(1)) {
             List<Worklog> worklogsForDay = worklogDao.findAllByUserAndDate(user, date);
             StatsDTO statsForDay = StatsDTO.builder()
-                                           .name(date.toString())
+                                           .name(date.getMonthValue() + "-" + date.getDayOfMonth())
                                            .value(worklogsForDay.stream()
                                                                 .mapToInt(w -> w.getDuration())
                                                                 .sum())
