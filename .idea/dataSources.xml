@@ -1,17 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="d4s8g6bsn4lgdv@ec2-54-246-84-200.eu-west-1.compute.amazonaws.com" uuid="0d7f5550-a696-4bf4-b4d5-22def802c81c">
-      <driver-ref>postgresql</driver-ref>
+    <data-source source="LOCAL" name="timesheetdb@localhost" uuid="efa8704e-f248-4d11-863f-54ac8d796b7c">
+      <driver-ref>mysql</driver-ref>
       <synchronize>true</synchronize>
-      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://ec2-54-246-84-200.eu-west-1.compute.amazonaws.com:5432/d4s8g6bsn4lgdv</jdbc-url>
+      <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mysql://localhost:3306/timesheetdb</jdbc-url>
+      <driver-properties>
+        <property name="autoReconnect" value="true" />
+        <property name="zeroDateTimeBehavior" value="convertToNull" />
+        <property name="tinyInt1isBit" value="false" />
+        <property name="characterEncoding" value="utf8" />
+        <property name="characterSetResults" value="utf8" />
+        <property name="yearIsDateType" value="false" />
+      </driver-properties>
     </data-source>
-    <data-source source="LOCAL" name="d4s8g6bsn4lgdv@ec2-54-246-84-200.eu-west-1.compute.amazonaws.com [2]" uuid="ba0ad2a6-9693-48bd-a1f9-01e35517f7ee">
+    <data-source source="LOCAL" name="postgres@localhost" uuid="ba659ea3-867a-45d7-9be9-de5e53e09c69">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://ec2-54-246-84-200.eu-west-1.compute.amazonaws.com:5432/d4s8g6bsn4lgdv</jdbc-url>
+      <jdbc-url>jdbc:postgresql://localhost:5432/postgres</jdbc-url>
     </data-source>
   </component>
 </project>
