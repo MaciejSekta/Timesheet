@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 
 import static com.msekta.timesheet.security.JwtConstants.TOKEN_TYPE;
 
-@CrossOrigin
 @RestController
 @RequestMapping("/login")
 public class LoginController {
@@ -27,6 +26,7 @@ public class LoginController {
         this.tokenService = tokenService;
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping(produces = "application/json")
     public ResponseEntity<JwtTokenDTO> signin(@RequestBody LoginDTO user) {
         System.out.println("I am here");

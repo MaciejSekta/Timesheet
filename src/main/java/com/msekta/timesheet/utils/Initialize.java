@@ -76,6 +76,8 @@ public class Initialize {
                                  .role(UserRole.WORKER.name())
                                  .build();
         User user = userService.createUser(userDto);
+        user.setPassword("pass");
+        user.setUsername("user");
         users.add(user);
         userDao.save(user);
         user.setSurname("user");
