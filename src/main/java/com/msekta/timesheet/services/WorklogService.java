@@ -68,7 +68,7 @@ public class WorklogService {
     }
 
     public List<WorklogDTO> getAllUserWorklogs(){
-        Long id = 1L; // to remove when sec
+        Long id = 3L; // to remove when sec
         List<Worklog> worklogs = worklogDao.findAllByUser_id(id);
         return worklogs.stream()
                        .map(w -> worklogMapper.mapModelToDTO(w))
