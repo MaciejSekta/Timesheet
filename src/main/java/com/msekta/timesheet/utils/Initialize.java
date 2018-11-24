@@ -78,6 +78,9 @@ public class Initialize {
         User user = userService.createUser(userDto);
         users.add(user);
         userDao.save(user);
+        user.setSurname("user");
+        user.setPassword("pass");
+        userDao.save(user);
         PaymentInfoDTO paymentInfo1 = PaymentInfoDTO.builder()
                                                     .bankAccountNo("1234567")
                                                     .nip("0987654")
