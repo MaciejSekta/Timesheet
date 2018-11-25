@@ -10,6 +10,8 @@ import com.msekta.timesheet.services.PaymentInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @Component
 public class UserMapper {
 
@@ -27,6 +29,7 @@ public class UserMapper {
                              .workDayHours(model.getWorkDayHours())
                              .ratePerHour(model.getRatePerHour())
                              .active(model.getActive())
+                             .email(model.getEmail())
                              .paymentInfo(paymentInfoService.mapModelToDTO(model.getPaymentInfo()))
                              .build();
         return dto;
@@ -41,6 +44,9 @@ public class UserMapper {
     }
 
     public User mapDTOToModel(UserDTO dto, User model) {
+        String username = (dto.getName().charAt(0) + dto.getSurname() + ((int)(Math.random()*1000))).toLowerCase();
+        model.setUsername(username);
+        model.setPassword(UUID.randomUUID().toString());
         model.setName(dto.getName());
         model.setSurname(dto.getSurname());
         model.setActive(dto.getActive());
@@ -50,6 +56,7 @@ public class UserMapper {
         model.setUserType(UserType.getEnum(dto.getUserType()));
         model.setPaymentInfo(paymentInfoService.mapDTOToModel(dto.getPaymentInfo(), model));
         model.setRole(UserRole.getEnum(dto.getRole()));
+        model.setEmail(dto.getEmail());
         return model;
     }
 }

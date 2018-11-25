@@ -1,11 +1,11 @@
 package com.msekta.timesheet.mappers;
 
 import com.msekta.timesheet.DTOs.WorklogDTO;
-import com.msekta.timesheet.DTOs.user.UserShortDTO;
 import com.msekta.timesheet.enums.WorklogStatus;
 import com.msekta.timesheet.models.Worklog;
 import com.msekta.timesheet.services.ProjectService;
 import com.msekta.timesheet.services.UserService;
+import com.msekta.timesheet.services.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -16,13 +16,15 @@ public class WorklogMapper {
     private ProjectMapper projectMapper;
     private UserService userService;
     private ProjectService projectService;
+    private AuthenticationService auth;
 
     @Autowired
-    public WorklogMapper(UserMapper userMapper, ProjectMapper projectMapper, UserService userService, ProjectService projectService) {
+    public WorklogMapper(UserMapper userMapper, ProjectMapper projectMapper, UserService userService, ProjectService projectService, AuthenticationService auth) {
         this.userMapper = userMapper;
         this.projectMapper = projectMapper;
         this.userService = userService;
         this.projectService = projectService;
+        this.auth = auth;
     }
 
     public WorklogDTO mapModelToDTO(Worklog model) {
@@ -46,11 +48,7 @@ public class WorklogMapper {
         model.setHourTo(dto.getHourTo());
         model.setDuration(dto.getDuration());
         model.setComment(dto.getComment());
-        // to delete when sec will be added
-        if(dto.getUser() == null){
-            dto.setUser(UserShortDTO.builder().id(3L).build());
-        }
-        model.setUser(userService.findUserById(dto.getUser().getId()));
+        model.setUser(auth.getLoggedUser());
         model.setProject(projectService.findProjectById(dto.getProject().getId()));
         model.setStatus(WorklogStatus.getEnum(dto.getStatus()));
         model.setDuration(dto.getHourTo() - dto.getHourFrom());

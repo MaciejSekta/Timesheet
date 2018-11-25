@@ -21,17 +21,19 @@ public class StatsService {
     private UserDao userDao;
     private ProjectDao projectDao;
     private WorklogDao worklogDao;
+    private AuthenticationService auth;
 
     @Autowired
-    public StatsService(UserDao userDao, ProjectDao projectDao, WorklogDao worklogDao) {
+    public StatsService(UserDao userDao, ProjectDao projectDao, WorklogDao worklogDao, AuthenticationService auth) {
         this.userDao = userDao;
         this.projectDao = projectDao;
         this.worklogDao = worklogDao;
+        this.auth = auth;
     }
 
     public List<StatsDTO> getWeekHours(Long userId) {
         User user = userDao.findById(userId)
-                           .orElse(userDao.findById(3L).orElseThrow(() -> new NoSuchElementException()));
+                           .orElse(auth.getLoggedUser());
         List<StatsDTO> statsList = new ArrayList<>();
         LocalDate monday = LocalDate.now()
                                     .with(DayOfWeek.MONDAY);
@@ -43,7 +45,7 @@ public class StatsService {
 
     public List<StatsDTO> getMonthHours(Long userId) {
         User user = userDao.findById(userId)
-                           .orElse(userDao.findById(3L).orElseThrow(() -> new NoSuchElementException()));
+                           .orElse(auth.getLoggedUser());
         List<StatsDTO> statsList = new ArrayList<>();
         LocalDate firstDayOfMonth = LocalDate.now()
                                              .withDayOfMonth(1);
@@ -55,7 +57,7 @@ public class StatsService {
 
     public List<StatsDTO> getYearHoursByMonth(Long userId) {
         User user = userDao.findById(userId)
-                           .orElse(userDao.findById(3L).orElseThrow(() -> new NoSuchElementException()));
+                           .orElse(auth.getLoggedUser());
         List<StatsDTO> statsList = new ArrayList<>();
         LocalDate firstDayOfMonth = LocalDate.now()
                                              .withDayOfMonth(1);
@@ -92,7 +94,7 @@ public class StatsService {
 
     public List<StatsDTO> getWeekProjects(Long userId) {
         User user = userDao.findById(userId)
-                           .orElse(userDao.findById(3L).orElseThrow(() -> new NoSuchElementException()));
+                           .orElse(auth.getLoggedUser());
         List<StatsDTO> statsList = new ArrayList<>();
         LocalDate monday = LocalDate.now()
                                     .with(DayOfWeek.MONDAY);
@@ -106,7 +108,7 @@ public class StatsService {
 
     public List<StatsDTO> getMonthProjects(Long userId) {
         User user = userDao.findById(userId)
-                           .orElse(userDao.findById(3L).orElseThrow(() -> new NoSuchElementException()));
+                           .orElse(auth.getLoggedUser());
         List<StatsDTO> statsList = new ArrayList<>();
         LocalDate firstDayOfMonth = LocalDate.now()
                                              .withDayOfMonth(1);
@@ -120,7 +122,7 @@ public class StatsService {
 
     public List<StatsDTO> getYearProjects(Long userId) {
         User user = userDao.findById(userId)
-                           .orElse(userDao.findById(3L).orElseThrow(() -> new NoSuchElementException()));
+                           .orElse(auth.getLoggedUser());
         List<StatsDTO> statsList = new ArrayList<>();
         LocalDate firstDayOfMonth = LocalDate.now()
                                              .withDayOfMonth(1);
@@ -155,7 +157,7 @@ public class StatsService {
 
     public List<StatsDTO> getWeekWorklogsStatus(Long userId){
         User user = userDao.findById(userId)
-                           .orElse(userDao.findById(3L).orElseThrow(() -> new NoSuchElementException()));
+                           .orElse(auth.getLoggedUser());
         LocalDate monday = LocalDate.now()
                                     .with(DayOfWeek.MONDAY);
         LocalDate friday = LocalDate.now()
@@ -166,7 +168,7 @@ public class StatsService {
 
     public List<StatsDTO> getMonthWorklogsStatus(Long userId){
         User user = userDao.findById(userId)
-                           .orElse(userDao.findById(3L).orElseThrow(() -> new NoSuchElementException()));
+                           .orElse(auth.getLoggedUser());
         LocalDate firstDayOfMonth = LocalDate.now()
                                              .withDayOfMonth(1);
         LocalDate lastDayOfMonth = LocalDate.now()
@@ -176,7 +178,7 @@ public class StatsService {
 
     public List<StatsDTO> getYearWorklogsStatus(Long userId){
         User user = userDao.findById(userId)
-                           .orElse(userDao.findById(3L).orElseThrow(() -> new NoSuchElementException()));
+                           .orElse(auth.getLoggedUser());
         LocalDate firstDayOfMonth = LocalDate.now()
                                              .withDayOfMonth(1);
         LocalDate lastDayOfMonth = LocalDate.now().withDayOfMonth(firstDayOfMonth.lengthOfMonth());

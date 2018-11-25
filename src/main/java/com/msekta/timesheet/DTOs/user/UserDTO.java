@@ -20,4 +20,5 @@ public class UserDTO extends LoginDTO {
     private String role;
     private Integer ratePerHour;
     private PaymentInfoDTO paymentInfo;
+    private String email;
 }

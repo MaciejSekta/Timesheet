@@ -24,18 +24,27 @@ public class UserService {
     private UserDao userDao;
     private UserMapper userMapper;
     private ProjectDao projectDao;
+    private ActivationService activationService;
 
     @Autowired
-    public UserService(UserDao userDao, UserMapper userMapper, ProjectDao projectDao) {
+    public UserService(UserDao userDao, UserMapper userMapper, ProjectDao projectDao, ActivationService activationService) {
         this.userDao = userDao;
         this.userMapper = userMapper;
         this.projectDao = projectDao;
+        this.activationService = activationService;
     }
 
     public User createUser(UserDTO userDto) {
         User user = userDao.save(User.builder().build());
         userMapper.mapDTOToModel(userDto, user);
-        return userDao.save(user);
+        user.setActive(true);
+         userDao.save(user);
+        try {
+            activationService.sendMail(user);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return user;
     }
 
     public User udpateUser(UserDTO userDto) {
@@ -102,11 +111,8 @@ public class UserService {
     }
 
     public User findUserById(Long userId) {
-        // to delete when sec will be added
         return userDao.findById(userId)
-                      .orElse(((List<User>) userDao.findAll()).stream()
-                                                              .findAny()
-                                                              .get());
+                      .orElseThrow(() -> new NoSuchElementException());
     }
 
     public List<User> setUsersFromDTO(ProjectDTO dto) {

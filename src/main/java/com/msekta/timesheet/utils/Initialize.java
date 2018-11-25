@@ -52,7 +52,7 @@ public class Initialize {
         projects = new ArrayList<>();
         initializeUsers();
         initializeProjects();
-        initializeWorklogs();
+//        initializeWorklogs();
     }
 
     private void initializeUsers() {
@@ -67,6 +67,7 @@ public class Initialize {
         UserDTO userDto = UserDTO.userBuilder()
                                  .name("Adam")
                                  .surname("Nowak")
+//                                 .email("masx.sekto@gmail.com")
                                  .birthday(LocalDate.now())
                                  .userType(UserType.INTERNAL.name())
                                  .workDayHours(8)

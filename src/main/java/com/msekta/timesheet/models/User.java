@@ -25,6 +25,7 @@ public class User {
     private UserType userType;
     private UserRole role;
     private Integer workDayHours;
+    private String email;
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
     private List<Worklog> worklogs;
     @ManyToMany
