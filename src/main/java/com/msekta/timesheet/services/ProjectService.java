@@ -5,6 +5,7 @@ import com.msekta.timesheet.DTOs.project.ProjectShortDTO;
 import com.msekta.timesheet.mappers.ProjectMapper;
 import com.msekta.timesheet.mappers.UserMapper;
 import com.msekta.timesheet.models.Project;
+import com.msekta.timesheet.models.User;
 import com.msekta.timesheet.repo.ProjectDao;
 import com.msekta.timesheet.repo.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +22,15 @@ public class ProjectService {
     private ProjectMapper projectMapper;
     private UserMapper userMapper;
     private UserDao userDao;
+    private AuthenticationService auth;
 
     @Autowired
-    public ProjectService(ProjectDao projectDao, ProjectMapper projectMapper, UserDao userDao, UserMapper userMapper) {
+    public ProjectService(ProjectDao projectDao, ProjectMapper projectMapper, UserMapper userMapper, UserDao userDao, AuthenticationService auth) {
         this.projectDao = projectDao;
         this.projectMapper = projectMapper;
-        this.userDao = userDao;
         this.userMapper = userMapper;
+        this.userDao = userDao;
+        this.auth = auth;
     }
 
     public Project createProject(ProjectDTO projectDTO) {
@@ -73,8 +76,9 @@ public class ProjectService {
                        .collect(Collectors.toList());
     }
 
-    public List<ProjectShortDTO> getAllWhereUserIsMember(Long id) {
-        List<Project> projects = projectDao.findAllByMembers_idAndActive(id, true);
+    public List<ProjectShortDTO> getAllWhereUserIsMember() {
+        User user = auth.getLoggedUser();
+        List<Project> projects = projectDao.findAllByMembers_idAndActive(user.getId(), true);
         return projects.stream()
                        .map(p -> projectMapper.mapModelToShortDTO(p))
                        .collect(Collectors.toList());

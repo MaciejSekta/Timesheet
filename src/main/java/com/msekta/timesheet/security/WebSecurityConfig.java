@@ -37,10 +37,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 		http.csrf().disable();
 		http.authorizeRequests()
 			.antMatchers(HttpMethod.POST, "/login").permitAll()
-			.antMatchers("/project/**").hasAuthority("ADMIN")
+			.antMatchers("/project/user").hasAnyAuthority("ADMIN", "MANAGER", "ACCOUNTANT", "WORKER")
+			.antMatchers("/project/short/all").hasAuthority("ADMIN")
+			.antMatchers("/project/all").hasAuthority("ADMIN")
+			.antMatchers(HttpMethod.POST, "/project").hasAuthority("ADMIN")
+			.antMatchers(HttpMethod.PUT, "/project").hasAuthority("ADMIN")
 			.antMatchers("/user/**").hasAnyAuthority("ADMIN", "ACCOUNTANT")
 			.antMatchers("/worklog/timesheet").hasAnyAuthority("ADMIN", "MANAGER", "ACCOUNTANT", "WORKER")
+			.antMatchers(HttpMethod.PUT, "/worklog").hasAnyAuthority("ADMIN", "MANAGER", "ACCOUNTANT", "WORKER")
+			.antMatchers(HttpMethod.DELETE, "/worklog/**").hasAnyAuthority("ADMIN", "MANAGER", "ACCOUNTANT", "WORKER")
 			.antMatchers("/worklog/**").hasAnyAuthority("MANAGER", "ADMIN")
+			.antMatchers("/stats/**").hasAnyAuthority("ADMIN", "MANAGER", "ACCOUNTANT", "WORKER")
 			.anyRequest().authenticated();
 
 		http.addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class);

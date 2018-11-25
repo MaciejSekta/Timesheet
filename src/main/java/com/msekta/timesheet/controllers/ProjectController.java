@@ -28,10 +28,10 @@ public class ProjectController {
 
     }
 
-    @GetMapping(value = "/user/{id}")
-    public ResponseEntity<List<ProjectShortDTO>> getAllWhereUserIsMember(@PathVariable("id") Long id){
+    @GetMapping(value = "/user")
+    public ResponseEntity<List<ProjectShortDTO>> getAllWhereUserIsMember(){
         try{
-            return ResponseEntity.ok(projectService.getAllWhereUserIsMember(id));
+            return ResponseEntity.ok(projectService.getAllWhereUserIsMember());
         }catch(Exception e){
             e.printStackTrace();
             return ResponseEntity.badRequest().build();
