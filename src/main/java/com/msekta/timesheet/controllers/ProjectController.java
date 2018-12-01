@@ -3,6 +3,9 @@ package com.msekta.timesheet.controllers;
 import com.msekta.timesheet.DTOs.project.ProjectDTO;
 import com.msekta.timesheet.DTOs.project.ProjectShortDTO;
 import com.msekta.timesheet.services.ProjectService;
+
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/project")
 @CrossOrigin
+@Slf4j
 public class ProjectController {
 
     @Autowired
@@ -22,7 +26,7 @@ public class ProjectController {
         try{
            return ResponseEntity.ok(projectService.getAllShortProjects());
         }catch(Exception e){
-            e.printStackTrace();
+        	log.info(e.getMessage(), e);
             return ResponseEntity.badRequest().build();
         }
 
@@ -33,7 +37,7 @@ public class ProjectController {
         try{
             return ResponseEntity.ok(projectService.getAllWhereUserIsMember());
         }catch(Exception e){
-            e.printStackTrace();
+        	log.info(e.getMessage(), e);
             return ResponseEntity.badRequest().build();
         }
 
@@ -44,7 +48,7 @@ public class ProjectController {
         try{
             return ResponseEntity.ok(projectService.getAllProjects());
         }catch(Exception e){
-            e.printStackTrace();
+        	log.info(e.getMessage(), e);
             return ResponseEntity.badRequest().build();
         }
 
@@ -56,7 +60,7 @@ public class ProjectController {
             projectService.udpateProject(project);
             return ResponseEntity.ok().build();
         }catch (Exception e){
-            e.printStackTrace();
+        	log.info(e.getMessage(), e);
             return ResponseEntity.badRequest().build();
         }
     }
@@ -67,7 +71,7 @@ public class ProjectController {
             projectService.changeActiveProject(id);
             return ResponseEntity.ok().build();
         }catch (Exception e){
-            e.printStackTrace();
+        	log.info(e.getMessage(), e);
             return ResponseEntity.badRequest().build();
         }
     }

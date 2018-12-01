@@ -1,15 +1,24 @@
 package com.msekta.timesheet.models;
 
+import java.time.LocalDate;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
 import com.msekta.timesheet.enums.WorklogStatus;
-import com.msekta.timesheet.models.User;
+
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-
-import javax.persistence.*;
-import java.time.LocalDate;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 public class Worklog {
 

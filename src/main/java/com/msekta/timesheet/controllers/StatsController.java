@@ -2,6 +2,9 @@ package com.msekta.timesheet.controllers;
 
 import com.msekta.timesheet.DTOs.StatsDTO;
 import com.msekta.timesheet.services.StatsService;
+
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/stats")
 @CrossOrigin
+@Slf4j
 public class StatsController {
 
     @Autowired
@@ -21,6 +25,7 @@ public class StatsController {
         try{
             return ResponseEntity.ok(statsService.getWeekHours(userId));
         } catch(Exception e){
+        	log.info(e.getMessage(), e);
             return ResponseEntity.badRequest().build();
         }
     }
@@ -30,6 +35,7 @@ public class StatsController {
         try{
             return ResponseEntity.ok(statsService.getWeekProjects(userId));
         } catch(Exception e){
+        	log.info(e.getMessage(), e);
             return ResponseEntity.badRequest().build();
         }
     }
@@ -39,6 +45,7 @@ public class StatsController {
         try{
             return ResponseEntity.ok(statsService.getWeekWorklogsStatus(userId));
         } catch(Exception e){
+        	log.info(e.getMessage(), e);
             return ResponseEntity.badRequest().build();
         }
     }
@@ -48,6 +55,7 @@ public class StatsController {
         try{
             return ResponseEntity.ok(statsService.getMonthHours(userId));
         } catch(Exception e){
+        	log.info(e.getMessage(), e);
             return ResponseEntity.badRequest().build();
         }
     }
@@ -57,6 +65,7 @@ public class StatsController {
         try{
             return ResponseEntity.ok(statsService.getMonthProjects(userId));
         } catch(Exception e){
+        	log.info(e.getMessage(), e);
             return ResponseEntity.badRequest().build();
         }
     }
@@ -66,6 +75,7 @@ public class StatsController {
         try{
             return ResponseEntity.ok(statsService.getMonthWorklogsStatus(userId));
         } catch(Exception e){
+        	log.info(e.getMessage(), e);
             return ResponseEntity.badRequest().build();
         }
     }
@@ -75,6 +85,7 @@ public class StatsController {
         try{
             return ResponseEntity.ok(statsService.getYearHoursByMonth(userId));
         } catch(Exception e){
+        	log.info(e.getMessage(), e);
             return ResponseEntity.badRequest().build();
         }
     }
@@ -84,6 +95,7 @@ public class StatsController {
         try{
             return ResponseEntity.ok(statsService.getYearProjects(userId));
         } catch(Exception e){
+        	log.info(e.getMessage(), e);
             return ResponseEntity.badRequest().build();
         }
     }
@@ -93,6 +105,7 @@ public class StatsController {
         try{
             return ResponseEntity.ok(statsService.getYearWorklogsStatus(userId));
         } catch(Exception e){
+        	log.info(e.getMessage(), e);
             return ResponseEntity.badRequest().build();
         }
     }

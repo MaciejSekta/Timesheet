@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import javax.mail.internet.MimeMessage;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.NoSuchElementException;
+import java.util.UUID;
 
 @Service
 public class ActivationService {
@@ -28,7 +30,7 @@ public class ActivationService {
         MimeMessage mailMessage = this.mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(mailMessage);
         helper.setTo(user.getEmail());
-        helper.setSubject("Activate your studint account");
+        helper.setSubject("Your Timesheet account");
         helper.setText(getActivationMessage(user));
         helper.setFrom("studintinc@gmail.com");
         helper.setSentDate(date);
@@ -36,7 +38,17 @@ public class ActivationService {
     }
 
     private String getActivationMessage(User user) {
-        return "Your Timesheet account is created \n" + " Your login: " + user.getUsername() + "\n" + "Your password: " + user.getPassword() + "\n" + "Your time matters";
+        return "Your Timesheet account credentials \n" + " Your login: " + user.getUsername() + "\n" + "Your password: " + user.getPassword() + "\n" + "Your time matters";
+    }
+    
+    public void changePassword(Long id) throws Exception {
+    	User user = userDao.findById(id).orElseThrow(NoSuchElementException::new);
+    	String newPassword = UUID.randomUUID().toString();
+    	user.setPassword(newPassword);
+    	userDao.save(user);
+    	this.sendMail(user);
+    	
+    	
     }
 
 }

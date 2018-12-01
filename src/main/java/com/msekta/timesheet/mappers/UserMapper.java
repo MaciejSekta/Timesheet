@@ -1,16 +1,16 @@
 package com.msekta.timesheet.mappers;
 
+import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import com.msekta.timesheet.DTOs.user.UserDTO;
-import com.msekta.timesheet.DTOs.user.UserDetailsDTO;
 import com.msekta.timesheet.DTOs.user.UserShortDTO;
 import com.msekta.timesheet.enums.UserRole;
 import com.msekta.timesheet.enums.UserType;
 import com.msekta.timesheet.models.User;
 import com.msekta.timesheet.services.PaymentInfoService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-import java.util.UUID;
 
 @Component
 public class UserMapper {

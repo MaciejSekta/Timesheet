@@ -2,8 +2,11 @@ package com.msekta.timesheet.models;
 
 import com.msekta.timesheet.enums.UserRole;
 import com.msekta.timesheet.enums.UserType;
+
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -11,7 +14,9 @@ import java.util.List;
 
 @Data
 @Builder
-@Entity(name = "employee")
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity(name = "users")
 public class User {
 
     @Id

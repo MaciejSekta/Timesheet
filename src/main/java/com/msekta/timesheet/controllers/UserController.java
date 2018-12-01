@@ -3,6 +3,9 @@ package com.msekta.timesheet.controllers;
 import com.msekta.timesheet.DTOs.user.UserDTO;
 import com.msekta.timesheet.DTOs.user.UserShortDTO;
 import com.msekta.timesheet.services.UserService;
+
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +15,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/users")
 @CrossOrigin
+@Slf4j
 public class UserController {
 
     @Autowired
@@ -22,7 +26,7 @@ public class UserController {
         try{
             return ResponseEntity.ok(userService.getAllUsers());
         }catch(Exception e){
-            e.printStackTrace();
+        	log.info(e.getMessage(), e);
             return ResponseEntity.badRequest().build();
         }
     }
@@ -32,7 +36,7 @@ public class UserController {
         try{
             return ResponseEntity.ok(userService.getAllShortUsers());
         }catch(Exception e){
-            e.printStackTrace();
+        	log.info(e.getMessage(), e);
             return ResponseEntity.badRequest().build();
         }
     }
@@ -42,7 +46,7 @@ public class UserController {
         try{
             return ResponseEntity.ok(userService.getUsersToAddToProject(id));
         }catch (Exception e){
-            e.printStackTrace();
+        	log.info(e.getMessage(), e);
             return ResponseEntity.noContent().build();
         }
     }
@@ -52,7 +56,7 @@ public class UserController {
         try{
             return ResponseEntity.ok(userService.getAvailableManagers());
         }catch (Exception e){
-            e.printStackTrace();
+        	log.info(e.getMessage(), e);
             return ResponseEntity.noContent().build();
         }
     }
@@ -63,7 +67,7 @@ public class UserController {
             userService.udpateUser(userDto);
             return ResponseEntity.ok().build();
         }catch(Exception e){
-            e.printStackTrace();
+        	log.info(e.getMessage(), e);
             return ResponseEntity.badRequest().build();
         }
     }
@@ -74,7 +78,7 @@ public class UserController {
             userService.changeActiveUser(id);
             return ResponseEntity.ok().build();
         }catch(Exception e){
-            e.printStackTrace();
+        	log.info(e.getMessage(), e);
             return ResponseEntity.badRequest().build();
         }
     }

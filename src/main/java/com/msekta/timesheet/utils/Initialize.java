@@ -67,14 +67,14 @@ public class Initialize {
         UserDTO userDto = UserDTO.userBuilder()
                                  .name("Adam")
                                  .surname("Nowak")
-//                                 .email("masx.sekto@gmail.com")
+                                 .email("masx.sekto@gmail.com")
                                  .birthday(LocalDate.now())
                                  .userType(UserType.INTERNAL.name())
                                  .workDayHours(8)
                                  .ratePerHour(100)
                                  .active(true)
                                  .paymentInfo(paymentInfo)
-                                 .role(UserRole.WORKER.name())
+                                 .role(UserRole.ADMIN.name())
                                  .build();
         User user = userService.createUser(userDto);
         user.setPassword("pass");

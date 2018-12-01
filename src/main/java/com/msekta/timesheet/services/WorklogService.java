@@ -81,7 +81,6 @@ public class WorklogService {
     }
 
     public List<WorklogDTO> getAllWorklogsOfMembersOfProjectsWhereUserIsManager(){
-        User user = auth.getLoggedUser();
         List<Worklog> worklogs = getWorklogsForManagerOrAdmin();
         return worklogs.stream()
                        .map(w -> worklogMapper.mapModelToDTO(w))
@@ -102,9 +101,7 @@ public class WorklogService {
         worklogDao.save(worklog);
     }
 
-    // Accept only worklogs of users which are members of projects of logged manager. Accept only with padding status.
     public void acceptAllWorklogs(){
-        User user = auth.getLoggedUser();
         List<Worklog> worklogs = getWorklogsForManagerOrAdmin();
         worklogs.stream().filter(w -> w.getStatus().equals(WorklogStatus.PENDING)).forEach(w -> {
             w.setStatus(WorklogStatus.ACCEPTED);

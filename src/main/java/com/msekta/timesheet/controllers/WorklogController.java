@@ -2,6 +2,9 @@ package com.msekta.timesheet.controllers;
 
 import com.msekta.timesheet.DTOs.WorklogDTO;
 import com.msekta.timesheet.services.WorklogService;
+
+import lombok.extern.slf4j.Slf4j;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,6 +14,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/worklog")
 @CrossOrigin
+@Slf4j
 public class WorklogController {
 
     @Autowired
@@ -21,7 +25,7 @@ public class WorklogController {
         try {
             return ResponseEntity.ok(worklogService.getAllWorklogs());
         } catch (Exception e) {
-            e.printStackTrace();
+        	log.info(e.getMessage(), e);
             return ResponseEntity.badRequest()
                                  .build();
         }
@@ -32,7 +36,7 @@ public class WorklogController {
         try{
             return ResponseEntity.ok(worklogService.getAllUserWorklogs());
         }catch (Exception e){
-            e.printStackTrace();
+        	log.info(e.getMessage(), e);
             return ResponseEntity.badRequest().build();
         }
     }
@@ -42,7 +46,7 @@ public class WorklogController {
         try{
             return ResponseEntity.ok(worklogService.getAllWorklogsOfMembersOfProjectsWhereUserIsManager());
         }catch (Exception e){
-            e.printStackTrace();
+        	log.info(e.getMessage(), e);
             return ResponseEntity.badRequest().build();
         }
     }
@@ -54,7 +58,7 @@ public class WorklogController {
             return ResponseEntity.ok()
                                  .build();
         } catch (Exception e) {
-            e.printStackTrace();
+        	log.info(e.getMessage(), e);
             return ResponseEntity.badRequest()
                                  .build();
         }
@@ -67,7 +71,7 @@ public class WorklogController {
             return ResponseEntity.ok()
                                  .build();
         } catch (Exception e) {
-            e.printStackTrace();
+        	log.info(e.getMessage(), e);
             return ResponseEntity.notFound()
                                  .build();
         }
@@ -79,7 +83,7 @@ public class WorklogController {
             worklogService.acceptWorklog(id);
             return ResponseEntity.ok().build();
         }catch(Exception e){
-            e.printStackTrace();
+        	log.info(e.getMessage(), e);
             return ResponseEntity.notFound().build();
         }
     }
@@ -90,7 +94,7 @@ public class WorklogController {
             worklogService.acceptAllWorklogs();
             return ResponseEntity.ok().build();
         }catch(Exception e){
-            e.printStackTrace();
+        	log.info(e.getMessage(), e);
             return ResponseEntity.noContent().build();
         }
     }
@@ -101,7 +105,7 @@ public class WorklogController {
             worklogService.rejectWorklog(id);
             return ResponseEntity.ok().build();
         }catch(Exception e){
-            e.printStackTrace();
+        	log.info(e.getMessage(), e);
             return ResponseEntity.notFound().build();
         }
     }
