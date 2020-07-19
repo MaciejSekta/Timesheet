@@ -5,8 +5,8 @@ import com.msekta.timesheet.DTOs.project.ProjectShortDTO;
 import com.msekta.timesheet.mappers.ProjectMapper;
 import com.msekta.timesheet.mappers.UserMapper;
 import com.msekta.timesheet.models.Project;
-import com.msekta.timesheet.repo.ProjectDao;
-import com.msekta.timesheet.repo.UserDao;
+import com.msekta.timesheet.repos.ProjectDAO;
+import com.msekta.timesheet.repos.UserDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,13 +17,13 @@ import java.util.stream.Collectors;
 @Service
 public class ProjectService {
 
-    private ProjectDao projectDao;
+    private ProjectDAO projectDao;
     private ProjectMapper projectMapper;
     private UserMapper userMapper;
-    private UserDao userDao;
+    private UserDAO userDao;
 
     @Autowired
-    public ProjectService(ProjectDao projectDao, ProjectMapper projectMapper, UserDao userDao, UserMapper userMapper) {
+    public ProjectService(ProjectDAO projectDao, ProjectMapper projectMapper, UserDAO userDao, UserMapper userMapper) {
         this.projectDao = projectDao;
         this.projectMapper = projectMapper;
         this.userDao = userDao;

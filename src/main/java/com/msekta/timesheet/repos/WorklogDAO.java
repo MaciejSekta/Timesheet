@@ -1,4 +1,4 @@
-package com.msekta.timesheet.repo;
+package com.msekta.timesheet.repos;
 
 import com.msekta.timesheet.enums.WorklogStatus;
 import com.msekta.timesheet.models.Project;
@@ -11,7 +11,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Repository
-public interface WorklogDao extends CrudRepository<Worklog, Long> {
+public interface WorklogDAO extends CrudRepository<Worklog, Long> {
 
     List<Worklog> findAllByActive(Boolean active);
 

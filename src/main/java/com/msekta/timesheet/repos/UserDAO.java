@@ -1,4 +1,4 @@
-package com.msekta.timesheet.repo;
+package com.msekta.timesheet.repos;
 
 import com.msekta.timesheet.enums.UserRole;
 import com.msekta.timesheet.models.Project;
@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Set;
 
 @Repository
-public interface UserDao extends CrudRepository<User, Long> {
+public interface UserDAO extends CrudRepository<User, Long> {
 
     Set<User> findAllByProjectsNot(Project project);
 

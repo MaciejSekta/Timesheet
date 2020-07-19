@@ -2,31 +2,29 @@ package com.msekta.timesheet.services;
 
 import com.msekta.timesheet.DTOs.project.ProjectDTO;
 import com.msekta.timesheet.DTOs.user.UserDTO;
-import com.msekta.timesheet.DTOs.user.UserDetailsDTO;
 import com.msekta.timesheet.DTOs.user.UserShortDTO;
 import com.msekta.timesheet.enums.UserRole;
 import com.msekta.timesheet.mappers.UserMapper;
 import com.msekta.timesheet.models.Project;
 import com.msekta.timesheet.models.User;
-import com.msekta.timesheet.repo.ProjectDao;
-import com.msekta.timesheet.repo.UserDao;
+import com.msekta.timesheet.repos.ProjectDAO;
+import com.msekta.timesheet.repos.UserDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
 public class UserService {
 
-    private UserDao userDao;
+    private UserDAO userDao;
     private UserMapper userMapper;
-    private ProjectDao projectDao;
+    private ProjectDAO projectDao;
 
     @Autowired
-    public UserService(UserDao userDao, UserMapper userMapper, ProjectDao projectDao) {
+    public UserService(UserDAO userDao, UserMapper userMapper, ProjectDAO projectDao) {
         this.userDao = userDao;
         this.userMapper = userMapper;
         this.projectDao = projectDao;

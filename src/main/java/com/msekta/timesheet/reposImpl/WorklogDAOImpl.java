@@ -1,9 +1,10 @@
-package com.msekta.timesheet.repo;
+package com.msekta.timesheet.reposImpl;
 
 import com.msekta.timesheet.enums.WorklogStatus;
 import com.msekta.timesheet.models.Project;
 import com.msekta.timesheet.models.User;
 import com.msekta.timesheet.models.Worklog;
+import com.msekta.timesheet.repos.WorklogDAO;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
 
 import javax.persistence.EntityManager;
@@ -11,7 +12,7 @@ import javax.persistence.criteria.*;
 import java.time.LocalDate;
 import java.util.List;
 
-public class WorklogDAOImpl extends SimpleJpaRepository<Worklog, Long> implements WorklogDao {
+public class WorklogDAOImpl extends SimpleJpaRepository<Worklog, Long> implements WorklogDAO {
 
     private final EntityManager entityManager;
 

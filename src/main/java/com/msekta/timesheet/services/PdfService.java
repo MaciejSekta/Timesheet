@@ -5,8 +5,8 @@ import com.itextpdf.text.pdf.*;
 import com.msekta.timesheet.enums.UserType;
 import com.msekta.timesheet.models.User;
 import com.msekta.timesheet.models.Worklog;
-import com.msekta.timesheet.repo.UserDao;
-import com.msekta.timesheet.repo.WorklogDao;
+import com.msekta.timesheet.repos.UserDAO;
+import com.msekta.timesheet.repos.WorklogDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,11 +20,11 @@ import java.util.NoSuchElementException;
 public class PdfService {
 
 
-    private UserDao userDao;
-    private WorklogDao worklogDao;
+    private UserDAO userDao;
+    private WorklogDAO worklogDao;
 
     @Autowired
-    public PdfService(UserDao userDao, WorklogDao worklogDao) {
+    public PdfService(UserDAO userDao, WorklogDAO worklogDao) {
         this.userDao = userDao;
         this.worklogDao = worklogDao;
     }

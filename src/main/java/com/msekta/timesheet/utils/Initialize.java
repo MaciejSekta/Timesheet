@@ -12,8 +12,8 @@ import com.msekta.timesheet.enums.WorklogStatus;
 import com.msekta.timesheet.models.Project;
 import com.msekta.timesheet.models.User;
 import com.msekta.timesheet.models.Worklog;
-import com.msekta.timesheet.repo.PaymentInfoDao;
-import com.msekta.timesheet.repo.UserDao;
+import com.msekta.timesheet.repos.PaymentInfoDAO;
+import com.msekta.timesheet.repos.UserDAO;
 import com.msekta.timesheet.services.ProjectService;
 import com.msekta.timesheet.services.UserService;
 import com.msekta.timesheet.services.WorklogService;
@@ -32,13 +32,13 @@ public class Initialize {
     private UserService userService;
     private ProjectService projectService;
     private WorklogService worklogService;
-    private UserDao userDao;
+    private UserDAO userDao;
     private List<User> users;
     private List<Project> projects;
-    private PaymentInfoDao paymentInfoDao;
+    private PaymentInfoDAO paymentInfoDao;
 
     @Autowired
-    public Initialize(UserService userService, ProjectService projectService, WorklogService worklogService, UserDao userDao, PaymentInfoDao paymentInfoDao) {
+    public Initialize(UserService userService, ProjectService projectService, WorklogService worklogService, UserDAO userDao, PaymentInfoDAO paymentInfoDao) {
         this.userService = userService;
         this.projectService = projectService;
         this.worklogService = worklogService;

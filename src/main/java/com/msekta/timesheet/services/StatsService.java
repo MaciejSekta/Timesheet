@@ -4,9 +4,9 @@ import com.msekta.timesheet.DTOs.StatsDTO;
 import com.msekta.timesheet.enums.WorklogStatus;
 import com.msekta.timesheet.models.User;
 import com.msekta.timesheet.models.Worklog;
-import com.msekta.timesheet.repo.ProjectDao;
-import com.msekta.timesheet.repo.UserDao;
-import com.msekta.timesheet.repo.WorklogDao;
+import com.msekta.timesheet.repos.ProjectDAO;
+import com.msekta.timesheet.repos.UserDAO;
+import com.msekta.timesheet.repos.WorklogDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,14 +18,14 @@ import java.util.*;
 @Service
 public class StatsService {
 
-    private UserDao userDao;
+    private UserDAO userDao;
 
-    private ProjectDao projectDao;
+    private ProjectDAO projectDao;
 
-    private WorklogDao worklogDao;
+    private WorklogDAO worklogDao;
 
     @Autowired
-    public StatsService(UserDao userDao, ProjectDao projectDao, WorklogDao worklogDao) {
+    public StatsService(UserDAO userDao, ProjectDAO projectDao, WorklogDAO worklogDao) {
         this.userDao = userDao;
         this.projectDao = projectDao;
         this.worklogDao = worklogDao;

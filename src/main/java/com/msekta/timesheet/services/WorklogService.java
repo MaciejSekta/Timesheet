@@ -5,27 +5,26 @@ import com.msekta.timesheet.enums.WorklogStatus;
 import com.msekta.timesheet.mappers.WorklogMapper;
 import com.msekta.timesheet.models.Project;
 import com.msekta.timesheet.models.Worklog;
-import com.msekta.timesheet.repo.ProjectDao;
-import com.msekta.timesheet.repo.WorklogDao;
+import com.msekta.timesheet.repos.ProjectDAO;
+import com.msekta.timesheet.repos.WorklogDAO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
 @Slf4j
 public class WorklogService {
 
-    private WorklogDao worklogDao;
+    private WorklogDAO worklogDao;
     private WorklogMapper worklogMapper;
-    private ProjectDao projectDao;
+    private ProjectDAO projectDao;
 
     @Autowired
-    public WorklogService(WorklogDao worklogDao, WorklogMapper worklogMapper, ProjectDao projectDao) {
+    public WorklogService(WorklogDAO worklogDao, WorklogMapper worklogMapper, ProjectDAO projectDao) {
         this.worklogDao = worklogDao;
         this.worklogMapper = worklogMapper;
         this.projectDao = projectDao;

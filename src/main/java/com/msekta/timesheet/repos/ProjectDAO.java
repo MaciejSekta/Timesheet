@@ -1,4 +1,4 @@
-package com.msekta.timesheet.repo;
+package com.msekta.timesheet.repos;
 
 import com.msekta.timesheet.models.Project;
 import com.msekta.timesheet.models.User;
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface ProjectDao extends CrudRepository<Project, Long> {
+public interface ProjectDAO extends CrudRepository<Project, Long> {
 
     List<Project> findAllByManager(User user);
 
