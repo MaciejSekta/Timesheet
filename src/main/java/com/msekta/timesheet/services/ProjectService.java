@@ -74,7 +74,7 @@ public class ProjectService {
     }
 
     public List<ProjectShortDTO> getAllWhereUserIsMember(Long id) {
-        List<Project> projects = projectDao.findAllByMembers_idAndActive(id, true);
+        List<Project> projects = projectDao.findAllByMembersIdAndActive(id, true);
         return projects.stream()
                        .map(p -> projectMapper.mapModelToShortDTO(p))
                        .collect(Collectors.toList());

@@ -76,7 +76,7 @@ public class WorklogService {
 
     public List<WorklogDTO> getAllWorklogsOfMembersOfProjectsWhereUserIsManager(){
         Long id = 3L; // to remove when sec
-        List<Project> projectsWhereUserIsAdmin = projectDao.findAllByManager_id(id);
+        List<Project> projectsWhereUserIsAdmin = projectDao.findAllByManagerId(id);
         List<Worklog> worklogs = worklogDao.findAllByProjectIn(projectsWhereUserIsAdmin);
         return worklogs.stream()
                        .map(w -> worklogMapper.mapModelToDTO(w))
