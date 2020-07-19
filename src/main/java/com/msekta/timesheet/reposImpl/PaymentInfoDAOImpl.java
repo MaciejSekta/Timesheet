@@ -8,7 +8,10 @@ import javax.persistence.EntityManager;
 
 public class PaymentInfoDAOImpl extends SimpleJpaRepository<PaymentInfo, Long> implements PaymentInfoDAO {
 
+    private final EntityManager entityManager;
+
     public PaymentInfoDAOImpl(Class<PaymentInfo> domainClass, EntityManager em) {
         super(domainClass, em);
+        this.entityManager = em;
     }
 }
